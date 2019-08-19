@@ -26,7 +26,7 @@
 	exclusive-use =
 		"P9.19",	// i2c2_scl
 		"P9.20",	// i2c2_sda
-		"P9.18",	// int
+		"P9.16",	// int
 		
 		"i2c2";		// hardware ip used
 
@@ -38,7 +38,7 @@
 		__overlay__ {
 			P9_19_pinmux { status = "disabled"; };	/* i2c2_scl */
 			P9_20_pinmux { status = "disabled"; };	/* i2c2_sda */
-			P9_18_pinmux { status = "disabled"; };	/*int	*/
+			P9_16_pinmux { status = "disabled"; };	/*int	*/
 		};
 	};
 
@@ -49,7 +49,7 @@
 				pinctrl-single,pins = <
 					BONE_P9_20 0x73	/* i2c2_sda, SLEWCTRL_SLOW | INPUT_PULLUP | MODE3 */
 					BONE_P9_19 0x73	/* i2c2_scl, SLEWCTRL_SLOW | INPUT_PULLUP | MODE3 */
-					BONE_P9_18 0x0F	/* INT,		 SLEWCTRL_SLOW | iNPUT_NULL	  | MODE7 */
+					BONE_P9_16 0x0F	/* INT,		SLEWCTRL_FAST | iNPUT_NULL	  | MODE7 */
 				>;
 			};
 		};
@@ -73,8 +73,8 @@
 			mpu6050@68 {
 				compatible = "invensense,mpu6050";
 				reg = <0x68>;
-				interrupt-parent = <&gpio0>;
-				interrupts = <4 IRQ_TYPE_EDGE_RISING>;
+				interrupt-parent = <&gpio1>;
+				interrupts = <19 IRQ_TYPE_EDGE_RISING>;
 			};
 
                         //hmc5883l@1e {
