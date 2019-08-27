@@ -1,0 +1,18 @@
+# Instalar o sistema de arquivos
+install exfat-utils
+
+# Montar o pendrive
+mkdir /tmp/pendrive
+mount /dev/sda1 /tmp/pendrive
+
+# Instalar drivers
+cp -r /tmp/pendrive/drivers /lib/modules/4.14.71-ti-r80/kernel/
+chmod -R a-x /lib/modules/4.14.71-ti-r80/kernel/drivers 
+chmod -R go-w /lib/modules/4.14.71-ti-r80/kernel/drivers
+depmod
+
+# Carregar modulo hrtimer
+modprobe iio-trig-hrtimer 
+
+# Criar instancia hrtimer
+mkdir /sys/kernel/config/iio/triggers/hrtimer/instance1
