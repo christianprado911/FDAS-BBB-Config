@@ -24,16 +24,8 @@
 	/*
 	 * Free up the pins used by the cape from the pinmux helpers.
 	 */
-	fragment@0 {
-		target = <&ocp>;
-		__overlay__ {
-			P9_12_pinmux { status = "disabled"; };	/* GPIO_60, out */
-			P9_15_pinmux { status = "disabled"; };	/* GPIO_48, out */
-			P9_23_pinmux { status = "disabled"; };	/* GPIO_49, in */
-		};
-	};
 
-	fragment@1 {
+	fragment@0 {
 		target = <&am33xx_pinmux>;
 		__overlay__ {
 			bb_gpio_pins: pinmux_bb_gpio_pins {
@@ -45,18 +37,14 @@
 			};
 		};
 	};
-	fragment@2 {
-		target = <&spi0>;
-		__overlay__ {
-			#address-cells = <1>;
-			#size-cells = <0>;
-
-			status = "okay";
-			pinctrl-names = "default";
-			pinctrl-0 = <&bb_gpio_pins>;
-			ti,pio-mode; /* disable dma when used as an overlay, dma gets stuck at 160 bits... */
-
-			};
-		};
-	};
+	fragment@1 {
+            target = <&ocp>;
+            	__overlay__ {
+                	test_helper: helper {
+                    	pinctrl-names = "default";
+                    	pinctrl-0 = <&pinctrl_test>;
+                    	status = "okay";
+                	};
+            	};
+        };
 };
