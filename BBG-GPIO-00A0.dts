@@ -35,10 +35,24 @@
 		__overlay__ {
 			bb_gpio_pins: pinmux_bb_gpio_pins {
 				pinctrl-single,pins = <
-					BONE_P9_12 (PIN_OUTPUT_PULLUP | MUX_MODE7) /* GPIO_60, out */
-					BONE_P9_15 (PIN_OUTPUT_PULLUP | MUX_MODE7) /* GPIO_48, out */
-					BONE_P9_23 (PIN_INPUT_PULLUP | MUX_MODE7) /* GPIO_49, in */
+					BONE_P9_12 0x2F /* GPIO_60, out */
+					BONE_P9_15 0x2F /* GPIO_48, out */
+					BONE_P9_23 0x0F /* GPIO_49, in */
 				>;
+			};
+		};
+	};
+	fragment@2 {
+		target = <&spi0>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			status = "okay";
+			pinctrl-names = "default";
+			pinctrl-0 = <&bb_gpio_pins>;
+			ti,pio-mode; /* disable dma when used as an overlay, dma gets stuck at 160 bits... */
+
 			};
 		};
 	};
