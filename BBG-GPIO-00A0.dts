@@ -2,6 +2,7 @@
 /dts-v1/;
 /plugin/;
 
+#include <dt-bindings/board/am335x-bbw-bbb-base.h>
 #include <dt-bindings/gpio/gpio.h>
 #include <dt-bindings/pinctrl/am33xx.h>
 
@@ -12,13 +13,14 @@
 	part-number = "BB-GPIO";
 	version = "00A0";		
 
-	/* state the resources this cape uses */
+	/* state the resources this cape uses
 	exclusive-use =
 		/* the pin header uses */
 		"P9.15",	/* GPIO_48, out */
 		"P9.23",	/* GPIO_49, in */
 		"P9.12",	/* GPIO_60, out */
 		"gpio";		/* the hardware ip uses */
+	*/
 	/*
 	 * Free up the pins used by the cape from the pinmux helpers.
 	 */
@@ -36,7 +38,7 @@
 		};
 	};
 	fragment@1 {
-            target = <&gpio>;
+            target = <&ocp>;
             	__overlay__ {
                 	test_helper: helper {
                     	pinctrl-names = "default";
