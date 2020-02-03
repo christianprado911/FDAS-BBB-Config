@@ -19,9 +19,9 @@
 	fragment@0 {
 	target = <&ocp>; 
 		__overlay__ {
-			0x078 { status = "disabled"; }; /* GPIO_60, out */
-			0x040 { status = "disabled"; }; /* GPIO_48, out */
-			0x044 { status = "disabled"; }; /* GPIO_49, in  */
+			P9.12 { status = "disabled"; }; /* GPIO_60, out */
+			P9.15 { status = "disabled"; }; /* GPIO_48, out */
+			P9.23 { status = "disabled"; }; /* GPIO_49, in  */
 		};
 	};
 	
@@ -34,26 +34,37 @@
   			cape-universal { status = "disabled"; };
     		};
 	};
-
-	fragment@2 {
-		target = <&am33xx_pinmux>;
+	
+	/*
+	 * Make a new set of gpio helpers.
+	 */
+	 fragment@2 {
+		target = <&ocp>;
 		__overlay__ {
-			bb_gpio_pins: pinmux_bb_gpio_pins {
-				pinctrl-single,pins = <
-					0x078 0x2F /* GPIO_60, out */
-					0x040 0x2F /* GPIO_48, out */
-					0x044 0x0F /* GPIO_49, in */
-				>;
-			};
-		};
-	};
-	fragment@3 {
-            target = <&ocp>;
-            	__overlay__ {
-			test_helper: helper {
-			pinctrl-names = "default";
-			pinctrl-0 = <&bb_gpio_pins>;
-			status = "okay";
+			cape-universal@1 {
+				compatible = "gpio-of-helper";
+				status = "okay";
+				pinctrl-names = "default";
+				pinctrl-0 = <>;
+
+				P9_12 {
+					gpio-name = "P9_12";
+					gpio = <&gpio1 28 0>;
+					output;
+					dir-changeable;
+				};
+				P9_15 {
+					gpio-name = "P9_15";
+					gpio = <&gpio1 16 0>;
+					output;
+					dir-changeable;
+				};
+				P9_23 {
+					gpio-name = "P9_23";
+					gpio = <&gpio1 17 0>;
+					input;
+					dir-changeable;
+				};
 			};
 		};
 	};
