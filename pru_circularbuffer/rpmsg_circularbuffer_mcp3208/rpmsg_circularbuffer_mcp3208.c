@@ -103,7 +103,7 @@ int main(void)
 				printf("Message %d: Sent to PRU\n", i);
 
 			/* Poll until we receive a message from the PRU */
-			result = read(pollfds[0].fd, readBu'f, MAX_BUFFER_SIZE);
+			result = read(pollfds[0].fd, readBuf, MAX_BUFFER_SIZE);
 
 			/* Read the buffer and print it if necessary */
 			if (result > 0) {
