@@ -52,7 +52,7 @@
 	int	readIndex	=	0;	// Index of the read pointer
 	int	writeIndex	=	0;	// Index of the write pointer
 	int	bufferLength	=	0;	// Number of values in circular buffer
-	int 	trigger2	=	0;  	// Trigger to readBuf
+	int 	trRead		=	0;  	// Trigger to readBuf
 
 #define NUM_MESSAGES		10000000 //apenas para teste
 #define DEVICE_NAME		"/dev/rpmsg_pru123"
@@ -62,7 +62,6 @@ int main(void)
 	struct pollfd pollfds[1];
 	int i;
 	int result = 0, trigger =0, count = 0;
-	int * p;
 
 	/* Criação do arquivo Buffer1 */
 	FILE *fl1;
@@ -98,32 +97,33 @@ int main(void)
                 result = write(pollfds[0].fd, msg, sizeof msg);
 
                 if (result > 0) {
-                /* Send 'msg' to the PRU through the RPMsg channel */
-                result = write(pollfds[0].fd, msg, sizeof msg);
-                if (result > 0)
-                	printf("Message %d: Sent to PRU\n", i);
+			/* Send 'msg' to the PRU through the RPMsg channel */
+			result = write(pollfds[0].fd, msg, sizeof msg);
+			if (result > 0)
+				printf("Message %d: Sent to PRU\n", i);
 
-                /* Poll until we receive a message from the PRU */
-                result = read(pollfds[0].fd, readBu'f, MAX_BUFFER_SIZE);
+			/* Poll until we receive a message from the PRU */
+			result = read(pollfds[0].fd, readBu'f, MAX_BUFFER_SIZE);
 
-                /* Read the buffer and print it if necessary */
-                if (result > 0) {
-			for (int i=0; i<result/2; i++) {
-				circularBuffer[writeIndex] = ((uint16_t*)readBuf)[i];
-			/* Inicio do Buffer Circular (1 segundo) */
-			if((circularBuffer[writeIndex] <= 3500) && trigger == 0){
-				printf("%d, %d, %d  Write the buffer\n", circularBuffer[writeIndex], bufferLength, writeIndex);
-				writeIndex++;
+			/* Read the buffer and print it if necessary */
+			if (result > 0) {
+				for (int i=0; i<result/2; i++) {
+					circularBuffer[writeIndex] = ((uint16_t*)readBuf)[i];
+				/* Inicio do Buffer Circular (1 segundo) */
+				if((circularBuffer[writeIndex] <= 3500) && trigger == 0){
+					printf("%d, %d, %d  Write the buffer\n", circularBuffer[writeIndex], bufferLength, writeIndex); //Only test
+					writeIndex++;
 
-				if (writeIndex == CIRCULAR_BUFFER) {
-					writeIndex = 0;}
+					if (writeIndex == CIRCULAR_BUFFER) {
+						writeIndex = 0;
+					}
 					if(bufferLength != CIRCULAR_BUFFER){
 						bufferLength++;
 					}
 				}
 
 				/* Imprime arquivo com 1 segundo de buffer circular */
-				if(trigger2 == 0){
+				if(trRead == 0){
 					if(circularBuffer[writeIndex] > 3500 || trigger == 1){
 						trigger = 1;
 						fprintf(fl1, "%d\n", circularBuffer[readIndex]);
@@ -133,7 +133,7 @@ int main(void)
 								readIndex = 0;
 							}
 							if (bufferLength == 0){
-								trigger2 = 1;
+								trRead= 1;
 							}
 					}
 				}/* Fim da impressão do Buffer circular */
@@ -147,10 +147,10 @@ int main(void)
 						trigger == 0;
 						}
 				}/* Fim impressao */
+				}
 			}
-                  }
 		}else
-                 printf("read error!!!\n");
+		 printf("read error!!!\n");
         }
 	/* Fim Iteração de coleta de dados =================================================*/
 
@@ -165,4 +165,3 @@ int main(void)
 
 	return 0;
 }
-
