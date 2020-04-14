@@ -53,6 +53,7 @@
 	int	writeIndex	=	0;	// Index of the write pointer
 	int	bufferLength	=	0;	// Number of values in circular buffer
 	int 	trRead		=	0;  	// Trigger to readBuf
+	int 	trrigger	=	0;  	// Trigger to measure
 
 #define NUM_MESSAGES		10000000 //apenas para teste
 #define DEVICE_NAME		"/dev/rpmsg_pru123"
@@ -61,9 +62,9 @@ int main(void)
 {
 	struct pollfd pollfds[1];
 	int i;
-	int result = 0, trigger =0, count = 0;
+	int result = 0, count = 0;
 
-	/* Criação do arquivo Buffer1 */
+	/* Criate Buffer1 and buffer2 file*/
 	FILE *fl1;
 	fl1 = fopen("buffer1.txt", "w");
 	FILE *fl2;
@@ -109,9 +110,10 @@ int main(void)
 			if (result > 0) {
 				for (int i=0; i<result/2; i++) {
 					circularBuffer[writeIndex] = ((uint16_t*)readBuf)[i];
+
 				/* Inicio do Buffer Circular (1 segundo) */
 				if((circularBuffer[writeIndex] <= 3500) && trigger == 0){
-					printf("%d, %d, %d  Write the buffer\n", circularBuffer[writeIndex], bufferLength, writeIndex); //Only test
+					printf("%d, %d, %d  Write the buffer\n", circularBuffer[writeIndex], bufferLength, writeIndex); // test
 					writeIndex++;
 
 					if (writeIndex == CIRCULAR_BUFFER) {
@@ -126,7 +128,7 @@ int main(void)
 				if(trRead == 0){
 					if(circularBuffer[writeIndex] > 3500 || trigger == 1){
 						trigger = 1;
-						fprintf(fl1, "%d\n", circularBuffer[readIndex]);
+						fprintf(fl1, "%d, %d\n", circularBuffer[readIndex], readIndex);
 						bufferLength--;
 						readIndex++;
 							if (readIndex == CIRCULAR_BUFFER) {
@@ -140,7 +142,7 @@ int main(void)
 
 				/* Inicio da impressao dos 10 segundos de coleta real-time */
 				if(trigger == 1 && count <= MAX_BUFFER_SIZE){
-					fprintf(fl2, "%d\n", circularBuffer[writeIndex]);
+					fprintf(fl2, "%d, %d\n", circularBuffer[writeIndex], writeIndex);
 					count++;
 						if(count == MAX_BUFFER_SIZE){
 						count = 0;
