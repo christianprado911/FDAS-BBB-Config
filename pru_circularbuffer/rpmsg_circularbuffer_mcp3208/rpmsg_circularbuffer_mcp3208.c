@@ -53,7 +53,7 @@
 	int	writeIndex	=	0;	// Index of the write pointer
 	int	bufferLength	=	0;	// Number of values in circular buffer
 	int 	trRead		=	0;  	// Trigger to readBuf
-	int 	trrigger	=	0;  	// Trigger to measure
+	int 	trigger		=	0;  	// Trigger to measure
 
 #define NUM_MESSAGES		10000000 //apenas para teste
 #define DEVICE_NAME		"/dev/rpmsg_pru123"
