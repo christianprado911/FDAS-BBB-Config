@@ -42,10 +42,6 @@
 
 #define		MAX_BUFFER_SIZE		10000000	// 10 segundos 
 #define		CIRCULAR_BUFFER		1000000		// 1 Segundo
-//#define		FAILURE			-1
-//#define		EXIT_LOOP               1
-
-/* Circular Buffer */
 
 	int	readBuf[CIRCULAR_BUFFER];
 	int	circularBuffer[MAX_BUFFER_SIZE] = { 0 };	// Empty circular buffer
