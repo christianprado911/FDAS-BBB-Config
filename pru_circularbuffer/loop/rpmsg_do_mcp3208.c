@@ -42,10 +42,6 @@
 
 #define		MAX_BUFFER_SIZE		10000000	// 10 segundos 
 #define		CIRCULAR_BUFFER		1000000		// 1 Segundo
-//#define		FAILURE			-1
-//#define		EXIT_LOOP               1
-
-/* Circular Buffer */
 
 	int	readBuf[CIRCULAR_BUFFER];
 	int	circularBuffer[MAX_BUFFER_SIZE] = { 0 };	// Empty circular buffer
@@ -85,23 +81,23 @@ int main(void)
 	}
 
 	/* The RPMsg channel exists and the character device is opened */
-	printf("Opened %s, reading %d buffers\n\n", DEVICE_NAME, NUM_MESSAGES);
+	printf("Opened %s, reading buffers\n\n", DEVICE_NAME);
 
-        const char msg[] = "PRU-ARM ADC CH 01 - Buffer Circular";
+        const char msg[] = "PRU-ARM ADC CH 01";
         /* Send 'msg' to the PRU through the RPMsg channel / Test only one channel 
         result = write(pollfds[0].fd, msg, sizeof msg);
         printf("write result = %d\n", result);*/
 
 	/* Inicio Iteração de coleta de dados =================================================*/
-	for (i = 0; i < NUM_MESSAGES; i++) {
+	do{
 		/* Send 'msg' to the PRU through the RPMsg channel */
                 result = write(pollfds[0].fd, msg, sizeof msg);
 
                 if (result > 0) {
 			/* Send 'msg' to the PRU through the RPMsg channel */
 			result = write(pollfds[0].fd, msg, sizeof msg);
-			if (result > 0)
-				printf("Message %d: Sent to PRU\n", i);
+			//if (result > 0)
+			//	printf("Message %d: Sent to PRU\n", i);
 
 			/* Poll until we receive a message from the PRU */
 			result = read(pollfds[0].fd, readBuf, MAX_BUFFER_SIZE);
@@ -147,20 +143,21 @@ int main(void)
 						if(count == MAX_BUFFER_SIZE){
 						count = 0;
 						trigger == 0;
+						break;
 						}
 				}/* Fim impressao */
 				}
 			}
 		}else
 		 printf("read error!!!\n");
-        }
+        }while(true);
 	/* Fim Iteração de coleta de dados =================================================*/
 
 	fclose(fl1);
 	fclose(fl2);
 
 	/* Received all the messages the example is complete */
-	printf("Received %d messages, closing %s\n", NUM_MESSAGES, DEVICE_NAME);
+	//printf("Received %d messages, closing %s\n", NUM_MESSAGES, DEVICE_NAME);
 
 	/* Close the rpmsg_pru character device file */
 	close(pollfds[0].fd);
