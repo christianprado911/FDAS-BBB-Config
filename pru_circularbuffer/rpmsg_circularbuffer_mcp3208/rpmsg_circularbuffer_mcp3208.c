@@ -38,12 +38,11 @@
 #include <string.h>
 #include <sys/poll.h>
 
-/*  CONSTANTS OF CIRCULAR BUFFER */
+#define		BUFFER_PRU		100
+#define		MAX_BUFFER_SIZE		10000000	// 10 segundos (PRU 1MHz)
+#define		CIRCULAR_BUFFER		1000000		// 1 Segundo (PRU 1MHz)
 
-#define		MAX_BUFFER_SIZE		10000000	// 10 segundos 
-#define		CIRCULAR_BUFFER		1000000		// 1 Segundo
-
-	int	readBuf[CIRCULAR_BUFFER];
+	int	readBuf[BUFFER_PRU];
 	int	circularBuffer[MAX_BUFFER_SIZE] = { 0 };	// Empty circular buffer
 	int	readIndex	=	0;	// Index of the read pointer
 	int	writeIndex	=	0;	// Index of the write pointer
@@ -100,7 +99,7 @@ int main(void)
 				printf("Message %d: Sent to PRU\n", i);
 
 			/* Poll until we receive a message from the PRU */
-			result = read(pollfds[0].fd, readBuf, MAX_BUFFER_SIZE);
+			result = read(pollfds[0].fd, readBuf, BUFFER_PRU);
 
 			/* Read the buffer and print it if necessary */
 			if (result > 0) {
