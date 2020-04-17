@@ -41,7 +41,6 @@
 #define		BUFFER_PRU		100
 #define		MAX_BUFFER_SIZE		10000000	// 10 segundos (PRU 1MHz)
 #define		CIRCULAR_BUFFER		1000000		// 1 Segundo (PRU 1MHz)
-#define		NUM_MESSAGES		10000000 //apenas para teste
 #define		DEVICE_NAME		"/dev/rpmsg_pru123"
 
 	int	readBuf[BUFFER_PRU];
@@ -51,6 +50,7 @@
 	int	bufferLength	=	0;	// Number of values in circular buffer
 	int 	trRead		=	0;  	// Trigger to readBuf
 	int 	trigger		=	0;  	// Trigger to measure
+	int	end_loop	=	0;	// Endding the loop and the program
 
 int main(void)
 {
@@ -141,14 +141,14 @@ int main(void)
 						if(count == MAX_BUFFER_SIZE){
 						count = 0;
 						trigger == 0;
-						break;
+						end_loop = 1;
 						}
 				}/* Fim impressao */
 				}
 			}
 		}else
 		 printf("read error!!!\n");
-        }while(true);
+        }while(end_loop == 0);
 	/* Fim Iteração de coleta de dados =================================================*/
 
 	fclose(fl1);
