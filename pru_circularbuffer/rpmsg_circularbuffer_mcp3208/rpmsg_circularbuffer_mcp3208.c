@@ -41,6 +41,8 @@
 #define		BUFFER_PRU		100
 #define		MAX_BUFFER_SIZE		10000000	// 10 segundos (PRU 1MHz)
 #define		CIRCULAR_BUFFER		1000000		// 1 Segundo (PRU 1MHz)
+#define		NUM_MESSAGES		10000000 //apenas para teste
+#define		DEVICE_NAME		"/dev/rpmsg_pru123"
 
 	int	readBuf[BUFFER_PRU];
 	int	circularBuffer[MAX_BUFFER_SIZE] = { 0 };	// Empty circular buffer
@@ -49,9 +51,6 @@
 	int	bufferLength	=	0;	// Number of values in circular buffer
 	int 	trRead		=	0;  	// Trigger to readBuf
 	int 	trigger		=	0;  	// Trigger to measure
-
-#define NUM_MESSAGES		10000000 //apenas para teste
-#define DEVICE_NAME		"/dev/rpmsg_pru123"
 
 int main(void)
 {
