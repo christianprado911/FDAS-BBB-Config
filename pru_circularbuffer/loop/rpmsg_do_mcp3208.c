@@ -39,8 +39,8 @@
 #include <sys/poll.h>
 
 #define		BUFFER_PRU		100
-#define		MAX_BUFFER_SIZE		100000		// 10 segundos (PRU 1MHz)
-#define		CIRCULAR_BUFFER		10000		// 1 Segundo (PRU 1MHz)
+#define		MAX_BUFFER_SIZE		1000000		// 10 segundos (PRU 1MHz)
+#define		CIRCULAR_BUFFER		100000		// 1 Segundo (PRU 1MHz)
 #define		DEVICE_NAME		"/dev/rpmsg_pru123"
 
 	int	readBuf[BUFFER_PRU];
