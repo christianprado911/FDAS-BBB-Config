@@ -39,8 +39,8 @@
 #include <sys/poll.h>
 
 #define		BUFFER_PRU		100
-#define		MAX_BUFFER_SIZE		10000000	// 10 segundos (PRU 1MHz)
-#define		CIRCULAR_BUFFER		1000000		// 1 Segundo (PRU 1MHz)
+#define		MAX_BUFFER_SIZE		100000		// 10 segundos (PRU 1MHz)
+#define		CIRCULAR_BUFFER		10000		// 1 Segundo (PRU 1MHz)
 #define		DEVICE_NAME		"/dev/rpmsg_pru123"
 
 	int	readBuf[BUFFER_PRU];
@@ -88,12 +88,12 @@ int main(void)
 
 	/* Inicio Iteração de coleta de dados =================================================*/
 	do{
+		/* Send 'msg' to the PRU through the RPMsg channel */
+		result = write(pollfds[0].fd, msg, sizeof msg);
                 if (result > 0) {
-			/* Send 'msg' to the PRU through the RPMsg channel */
-			result = write(pollfds[0].fd, msg, sizeof msg);
 			//if (result > 0)
 			//	printf("Message %d: Sent to PRU\n", i);
-			
+
 			/* Poll until we receive a message from the PRU */
 			result = read(pollfds[0].fd, readBuf, BUFFER_PRU);
 
