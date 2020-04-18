@@ -88,15 +88,12 @@ int main(void)
 
 	/* Inicio Iteração de coleta de dados =================================================*/
 	do{
-		/* Send 'msg' to the PRU through the RPMsg channel */
-                result = write(pollfds[0].fd, msg, sizeof msg);
-
                 if (result > 0) {
 			/* Send 'msg' to the PRU through the RPMsg channel */
 			result = write(pollfds[0].fd, msg, sizeof msg);
 			//if (result > 0)
 			//	printf("Message %d: Sent to PRU\n", i);
-
+			
 			/* Poll until we receive a message from the PRU */
 			result = read(pollfds[0].fd, readBuf, BUFFER_PRU);
 
