@@ -104,7 +104,7 @@ int main(void)
 
 				/* Inicio do Buffer Circular (1 segundo) */
 				if((circularBuffer[writeIndex] <= 3500) && trigger == 0){
-					printf("%d, %d, %d  Write the buffer\n", circularBuffer[writeIndex], bufferLength, writeIndex); // test
+				//	printf("%d, %d, %d  Write the buffer\n", circularBuffer[writeIndex], bufferLength, writeIndex); // test
 					writeIndex++;
 
 					if (writeIndex == CIRCULAR_BUFFER) {
