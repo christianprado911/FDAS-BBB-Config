@@ -52,6 +52,9 @@
 	int 	count		=	0;  	// Index of buffer_10s / end of loop
 	int 	trigger		=	0;  	// Trigger to change from circular buffer to 10s buffer
 
+int buffer1 (int d, int *n);
+int buffer10 (int d, int *n);
+
 int main(void)
 {
 	struct pollfd pollfds[1];
