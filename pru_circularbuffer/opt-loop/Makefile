@@ -1,2 +1,2 @@
-rpmsg_do_mcp3208: rpmsg_do_mcp3208.c
+rpmsg_loop: rpmsg_loop.c
 	gcc -o $@ $<
