@@ -44,25 +44,19 @@
 #define		DEVICE_NAME		"/dev/rpmsg_pru123"
 
 	int	readBuf[BUFFER_PRU];
-	int	circularBuffer[MAX_BUFFER_SIZE] = { 0 };	// Empty circular buffer
+	int	circularBuffer[CIRCULLAR_BUFFER] = { 0 };	// Empty circular buffer
+	int	buffer_10s[MAX_BUFFER_SIZE]	= { 0 };	// Empty 10s buffer
 	int	readIndex	=	0;	// Index of the read pointer
 	int	writeIndex	=	0;	// Index of the write pointer
 	int	bufferLength	=	0;	// Number of values in circular buffer
-	int 	trRead		=	0;  	// Trigger to readBuf
-	int 	trigger		=	0;  	// Trigger to measure
-	int	end_loop	=	0;	// Endding the loop and the program
+	int 	count		=	0;  	// Index of buffer_10s / end of loop
+	int 	trigger		=	0;  	// Trigger to change from circular buffer to 10s buffer
 
 int main(void)
 {
 	struct pollfd pollfds[1];
 	int i;
-	int result = 0, count = 0;
-
-	/* Criate Buffer1 and buffer2 file*/
-	FILE *fl1;
-	fl1 = fopen("buffer1.txt", "w");
-	FILE *fl2;
-	fl2 = fopen("buffer2.txt", "w");
+	int result = 0, data;;
 
 	/* Open the rpmsg_pru character device file */
 	pollfds[0].fd = open(DEVICE_NAME, O_RDWR);
@@ -100,13 +94,16 @@ int main(void)
 			/* Read the buffer and print it if necessary */
 			if (result > 0) {
 				for (int i=0; i<result/2; i++) {
-					circularBuffer[writeIndex] = ((uint16_t*)readBuf)[i];
-
+					data = ((uint16_t*)readBuf)[i];
+					
+					if(data > 3500){
+						trigger = 1;
+					}
 				/* Inicio do Buffer Circular (1 segundo) */
-				if((circularBuffer[writeIndex] <= 3500) && trigger == 0){
+				if(trigger == 0){
 				//	printf("%d, %d, %d  Write the buffer\n", circularBuffer[writeIndex], bufferLength, writeIndex); // test
+					circularBuffer[writeIndex] = data;
 					writeIndex++;
-
 					if (writeIndex == CIRCULAR_BUFFER) {
 						writeIndex = 0;
 					}
@@ -115,42 +112,21 @@ int main(void)
 					}
 				}
 
-				/* Imprime arquivo com 1 segundo de buffer circular */
-				if(trRead == 0){
-					if(circularBuffer[writeIndex] > 3500 || trigger == 1){
-						trigger = 1;
-						fprintf(fl1, "%d, %d\n", circularBuffer[readIndex], readIndex);
-						bufferLength--;
-						readIndex++;
-							if (readIndex == CIRCULAR_BUFFER) {
-								readIndex = 0;
-							}
-							if (bufferLength == 0){
-								trRead= 1;
-							}
-					}
-				}/* Fim da impressão do Buffer circular */
-
-				/* Inicio da impressao dos 10 segundos de coleta real-time */
-				if(trigger == 1 && count <= MAX_BUFFER_SIZE){
-					fprintf(fl2, "%d, %d\n", circularBuffer[writeIndex], writeIndex);
+				/* Inicio da coleta dos 10 segundos real-time */
+				if(trigger == 1){
+					buffer_10s[count] = data;
 					count++;
-						if(count == MAX_BUFFER_SIZE){
-						count = 0;
-						trigger == 0;
-						end_loop = 1;
-						}
-				}/* Fim impressao */
+				}/* Fim Coleta */
 				}
 			}
 		}else
 		 printf("read error!!!\n");
-        }while(end_loop == 0);
-	/* Fim Iteração de coleta de dados =================================================*/
-
-	fclose(fl1);
-	fclose(fl2);
-
+        }while(count != MAX_BUFFER_SIZE);
+	/* Fim Iteração de coleta de dados. Gravação dos dados em arquivos=================*/
+	
+	buffer1(circularBuffer, bufferLength);
+	buffer10(buffer_10s, count);
+		
 	/* Received all the messages the example is complete */
 	//printf("Received %d messages, closing %s\n", NUM_MESSAGES, DEVICE_NAME);
 
@@ -158,4 +134,33 @@ int main(void)
 	close(pollfds[0].fd);
 
 	return 0;
+}
+			   
+//Função que grava os arquivos do buffer circular
+int buffer1 (int d, int *n)
+{
+	int i = 0;
+	FILE *fl1;
+	fl1 = fopen("buffer1.txt", "w");
+	
+	for(i = 0; i <= n; i++){
+		fprintf(fl1, "%d, %d\n", d[i], i);
+	}
+	fclose(fl1);
+	return(0);
+}
+/* Fim da impressão do Buffer circular */
+
+//Função que grava os arquivos do buffer_10s
+int buffer10 (int d, int *n)
+{
+	int i = 0;
+	FILE *fl2;
+	fl2 = fopen("buffer2.txt", "w");
+	
+	for(i = 0; i <= n; i++){
+		fprintf(fl1, "%d, %d\n", d[i], i);
+	}
+	fclose(fl2);
+	return(0);
 }
