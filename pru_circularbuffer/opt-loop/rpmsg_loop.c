@@ -98,7 +98,7 @@ int main(void)
 			if (result > 0) {
 				for (int i=0; i<result/2; i++) {
 					data = ((uint16_t*)readBuf)[i];
-					
+
 					if(data > 3500){
 						trigger = 1;
 					}
@@ -126,10 +126,10 @@ int main(void)
 		 printf("read error!!!\n");
         }while(count != MAX_BUFFER_SIZE);
 	/* Fim Iteração de coleta de dados. Gravação dos dados em arquivos=================*/
-	
+
 	buffer1(circularBuffer, bufferLength);
 	buffer10(buffer_10s, count);
-		
+
 	/* Received all the messages the example is complete */
 	//printf("Received %d messages, closing %s\n", NUM_MESSAGES, DEVICE_NAME);
 
@@ -138,14 +138,14 @@ int main(void)
 
 	return 0;
 }
-			   
+
 //Função que grava os arquivos do buffer circular
 int buffer1 (int d, int n)
 {
 	int i = 0;
 	FILE *fl1;
 	fl1 = fopen("buffer1.txt", "w");
-	
+
 	for(i = 0; i <= n; i++){
 		fprintf(fl1, "%d, %d\n", d[i], i);
 	}
@@ -160,7 +160,7 @@ int buffer10 (int d, int n)
 	int i = 0;
 	FILE *fl2;
 	fl2 = fopen("buffer2.txt", "w");
-	
+
 	for(i = 0; i <= n; i++){
 		fprintf(fl1, "%d, %d\n", d[i], i);
 	}
