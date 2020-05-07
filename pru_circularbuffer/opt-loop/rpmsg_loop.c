@@ -150,7 +150,6 @@ void buffer1 (int d[], int n)
 		fprintf(fl1, "%d, %d\n", d[i], i);
 	}
 	fclose(fl1);
-	return 0;
 }
 /* Fim da impressão do Buffer circular */
 
@@ -165,5 +164,4 @@ void buffer10 (int d[], int n)
 		fprintf(fl1, "%d, %d\n", d[i], i);
 	}
 	fclose(fl2);
-	return 0;
 }
