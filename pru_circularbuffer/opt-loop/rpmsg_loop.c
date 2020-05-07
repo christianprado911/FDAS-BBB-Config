@@ -52,14 +52,14 @@
 	int 	count		=	0;  	// Index of buffer_10s / end of loop
 	int 	trigger		=	0;  	// Trigger to change from circular buffer to 10s buffer
 
-void buffer1 (int d, int n);
-void buffer10 (int d, int n);
+void buffer1 (int d[], int n);
+void buffer10 (int d[], int n);
 
 int main(void)
 {
 	struct pollfd pollfds[1];
 	int i;
-	int result = 0, data;;
+	int result = 0, data;
 
 	/* Open the rpmsg_pru character device file */
 	pollfds[0].fd = open(DEVICE_NAME, O_RDWR);
@@ -140,7 +140,7 @@ int main(void)
 }
 
 //Função que grava os arquivos do buffer circular
-void buffer1 (int d, int n)
+void buffer1 (int d[], int n)
 {
 	int i = 0;
 	FILE *fl1;
@@ -155,7 +155,7 @@ void buffer1 (int d, int n)
 /* Fim da impressão do Buffer circular */
 
 //Função que grava os arquivos do buffer_10s
-void buffer10 (int d, int n)
+void buffer10 (int d[], int n)
 {
 	int i = 0;
 	FILE *fl2;
