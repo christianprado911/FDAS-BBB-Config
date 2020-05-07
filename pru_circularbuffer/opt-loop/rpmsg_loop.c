@@ -59,7 +59,7 @@ int main(void)
 {
 	struct pollfd pollfds[1];
 	int i;
-	int result = 0, data;
+	int result = 0;
 
 	/* Open the rpmsg_pru character device file */
 	pollfds[0].fd = open(DEVICE_NAME, O_RDWR);
@@ -97,15 +97,15 @@ int main(void)
 			/* Read the buffer and print it if necessary */
 			if (result > 0) {
 				for (int i=0; i<result/2; i++) {
-					data = ((uint16_t*)readBuf)[i];
+					int data = ((uint16_t*)readBuf)[i];
 
 					if(data > 3500){
 						trigger = 1;
 					}
 				/* Inicio do Buffer Circular (1 segundo) */
 				if(trigger == 0){
-					printf("%d, %d, %d  Write the buffer\n", circularBuffer[writeIndex], bufferLength, writeIndex); // test
 					circularBuffer[writeIndex] = data;
+					printf("%d, %d, %d  Write the buffer\n", circularBuffer[writeIndex], bufferLength, writeIndex); // test
 					writeIndex++;
 					if (writeIndex == CIRCULAR_BUFFER) {
 						writeIndex = 0;
