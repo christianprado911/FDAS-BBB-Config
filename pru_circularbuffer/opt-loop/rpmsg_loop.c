@@ -161,7 +161,7 @@ void buffer10 (int d[], int n)
 	fl2 = fopen("buffer2.txt", "w");
 
 	for(i = 0; i <= n; i++){
-		fprintf(fl1, "%d, %d\n", d[i], i);
+		fprintf(fl2, "%d, %d\n", d[i], i);
 	}
 	fclose(fl2);
 }
