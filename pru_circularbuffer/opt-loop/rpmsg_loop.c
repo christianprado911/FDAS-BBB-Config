@@ -51,6 +51,7 @@
 	int	bufferLength	=	0;	// Number of values in circular buffer
 	int 	count		=	0;  	// Index of buffer_10s / end of loop
 	int 	trigger		=	0;  	// Trigger to change from circular buffer to 10s buffer
+	char	namefile[]	=	0;	// Record the date of the signal
 
 void buffer1 (int d[], int n);
 void buffer10 (int d[], int n);
@@ -99,13 +100,14 @@ int main(void)
 				for (int i=0; i<result/2; i++) {
 					int data = ((uint16_t*)readBuf)[i];
 
-					if(data > 3500){
+					if(data > 3500 && trigger == 0){
 						trigger = 1;
+						namefile = date +%d-%m-%Y_%H-%M-%S;
 					}
 				/* Inicio do Buffer Circular (1 segundo) */
 				if(trigger == 0){
 					circularBuffer[writeIndex] = data;
-					printf("%d, %d, %d  Write the buffer\n", circularBuffer[writeIndex], bufferLength, writeIndex); // test
+					//printf("%d, %d, %d  Write the buffer\n", circularBuffer[writeIndex], bufferLength, writeIndex); // test
 					writeIndex++;
 					if (writeIndex == CIRCULAR_BUFFER) {
 						writeIndex = 0;
@@ -127,8 +129,8 @@ int main(void)
         }while(count != MAX_BUFFER_SIZE);
 	/* Fim Iteração de coleta de dados. Gravação dos dados em arquivos=================*/
 
-	buffer1(circularBuffer, bufferLength);
-	buffer10(buffer_10s, count);
+	buffer1(circularBuffer, bufferLength, namefile);
+	buffer10(buffer_10s, count, namefile);
 
 	/* Received all the messages the example is complete */
 	//printf("Received %d messages, closing %s\n", NUM_MESSAGES, DEVICE_NAME);
@@ -140,11 +142,13 @@ int main(void)
 }
 
 //Função que grava os arquivos do buffer circular
-void buffer1 (int d[], int n)
+void buffer1 (int d[], int n, char namefile[])
 {
+	char buf[0x100];
+	snprintf(buf, sizeof(buf), "1-%s.txt", namefile);
 	int i = 0;
 	FILE *fl1;
-	fl1 = fopen("buffer1.txt", "w");
+	fl1 = fopen(buf, "w", );
 
 	for(i = 0; i <= n; i++){
 		fprintf(fl1, "%d\n", d[i]);
@@ -154,11 +158,13 @@ void buffer1 (int d[], int n)
 /* Fim da impressão do Buffer circular */
 
 //Função que grava os arquivos do buffer_10s
-void buffer10 (int d[], int n)
+void buffer10 (int d[], int n, char namefile[])
 {
+	char buf[0x100];
+	snprintf(buf, sizeof(buf), "2-%s.txt", namefile);
 	int i = 0;
 	FILE *fl2;
-	fl2 = fopen("buffer2.txt", "w");
+	fl2 = fopen(buf, "w");
 
 	for(i = 0; i <= n; i++){
 		fprintf(fl2, "%d\n", d[i]);
