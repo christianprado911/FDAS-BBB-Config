@@ -156,7 +156,6 @@ void buffer1 (int d[], int n, char namefile[])
 	for(i = 0; i <= n; i++){
 		fprintf(fl1, "%d\n", d[i]);
 	}
-	cp 
 	fclose(fl1);
 }
 /* Fim da impressão do Buffer circular */
@@ -168,7 +167,7 @@ void buffer10 (int d[], int n, char namefile[])
 	snprintf(buf, sizeof(buf),  "%s-2.txt", namefile);
 	int i = 0;
 	FILE *fl2;
-	fl2 = fopen(namefile, "w");
+	fl2 = fopen(buf, "w");
 
 	for(i = 0; i <= n; i++){
 		fprintf(fl2, "%d\n", d[i]);
