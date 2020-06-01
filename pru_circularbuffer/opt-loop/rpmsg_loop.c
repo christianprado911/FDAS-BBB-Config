@@ -54,8 +54,8 @@
 	int 	trigger		=	0;  	// Trigger to change from circular buffer to 10s buffer
 	char	namefile[20]		;	// Record the date of the signal
 
-void buffer1 (int d[], int n, char namefile);
-void buffer10 (int d[], int n, char namefile);
+void buffer1 (int d[], int n, char namefile[]);
+void buffer10 (int d[], int n, char namefile[]);
 
 int main(void)
 {	time_t t = time(NULL);
