@@ -54,8 +54,8 @@
 	int 	trigger		=	0;  	// Trigger to change from circular buffer to 10s buffer
 	char	namefile[20]		;	// Record the date of the signal
 
-void buffer1 (int d[], int n);
-void buffer10 (int d[], int n);
+void buffer1 (int d[], int n, char namefile[]);
+void buffer10 (int d[], int n, char namefile[]);
 
 int main(void)
 {	time_t t = time(NULL);
@@ -148,7 +148,7 @@ int main(void)
 void buffer1 (int d[], int n, char namefile[])
 {
 	char buf[30];
-	snprintf(buf, sizeof(buf),  "%s-1.txt", namefile);
+	snprintf(buf, sizeof buf,  "%s-1.txt", namefile);
 	int i = 0;
 	FILE *fl1;
 	fl1 = fopen(buf, "w");
@@ -164,7 +164,7 @@ void buffer1 (int d[], int n, char namefile[])
 void buffer10 (int d[], int n, char namefile[])
 {
 	char buf[30];
-	snprintf(buf, sizeof(buf),  "%s-2.txt", namefile);
+	snprintf(buf, sizeof buf,  "%s-2.txt", namefile);
 	int i = 0;
 	FILE *fl2;
 	fl2 = fopen(buf, "w");
