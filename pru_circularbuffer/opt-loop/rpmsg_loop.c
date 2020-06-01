@@ -37,6 +37,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include <sys/poll.h>
+#include <time.h>
 
 #define		BUFFER_PRU		100
 #define		MAX_BUFFER_SIZE		1000000		// 10 segundos (PRU 1MHz)
@@ -51,13 +52,15 @@
 	int	bufferLength	=	0;	// Number of values in circular buffer
 	int 	count		=	0;  	// Index of buffer_10s / end of loop
 	int 	trigger		=	0;  	// Trigger to change from circular buffer to 10s buffer
-	char	namefile[]	=	0;	// Record the date of the signal
+	char	namefile[20]		;	// Record the date of the signal
 
 void buffer1 (int d[], int n);
 void buffer10 (int d[], int n);
 
 int main(void)
-{
+{	time_t t = time(NULL);
+	struct tm tm = *localtime(&t);
+	
 	struct pollfd pollfds[1];
 	int i;
 	int result = 0;
@@ -102,7 +105,7 @@ int main(void)
 
 					if(data > 3500 && trigger == 0){
 						trigger = 1;
-						namefile = date +%d-%m-%Y_%H-%M-%S;
+						snprintf(namefile, "%02d-%02d-%d_%02dh%02dm%02d\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec);
 					}
 				/* Inicio do Buffer Circular (1 segundo) */
 				if(trigger == 0){
@@ -143,16 +146,16 @@ int main(void)
 
 //Função que grava os arquivos do buffer circular
 void buffer1 (int d[], int n, char namefile[])
-{
-	char buf[0x100];
-	snprintf(buf, sizeof(buf), "1-%s.txt", namefile);
+{	char buf[22];
+	snprintf(buf, sizeof(buf),  "%s-1.txt", namefile);
 	int i = 0;
 	FILE *fl1;
-	fl1 = fopen(buf, "w", );
+	fl1 = fopen(buf, "w");
 
 	for(i = 0; i <= n; i++){
 		fprintf(fl1, "%d\n", d[i]);
 	}
+	cp 
 	fclose(fl1);
 }
 /* Fim da impressão do Buffer circular */
@@ -160,11 +163,11 @@ void buffer1 (int d[], int n, char namefile[])
 //Função que grava os arquivos do buffer_10s
 void buffer10 (int d[], int n, char namefile[])
 {
-	char buf[0x100];
-	snprintf(buf, sizeof(buf), "2-%s.txt", namefile);
+	char buf[22];
+	snprintf(buf, sizeof(buf),  "%s-2.txt", namefile);
 	int i = 0;
 	FILE *fl2;
-	fl2 = fopen(buf, "w");
+	fl2 = fopen(namefile, "w");
 
 	for(i = 0; i <= n; i++){
 		fprintf(fl2, "%d\n", d[i]);
