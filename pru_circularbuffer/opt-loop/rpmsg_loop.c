@@ -147,7 +147,7 @@ int main(void)
 //Função que grava os arquivos do buffer circular
 void buffer1 (int d[], int n, char namefile[])
 {
-	char buf[22];
+	char buf[30];
 	snprintf(buf, sizeof(buf),  "%s-1.txt", namefile);
 	int i = 0;
 	FILE *fl1;
@@ -163,7 +163,7 @@ void buffer1 (int d[], int n, char namefile[])
 //Função que grava os arquivos do buffer_10s
 void buffer10 (int d[], int n, char namefile[])
 {
-	char buf[22];
+	char buf[30];
 	snprintf(buf, sizeof(buf),  "%s-2.txt", namefile);
 	int i = 0;
 	FILE *fl2;
