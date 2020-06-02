@@ -58,9 +58,10 @@ void buffer1 (int d[], int n, char namefile[]);
 void buffer10 (int d[], int n, char namefile[]);
 
 int main(void)
-{	time_t t = time(NULL);
+{
+	time_t t = time(NULL);
 	struct tm tm = *localtime(&t);
-	
+
 	struct pollfd pollfds[1];
 	int i;
 	int result = 0;
