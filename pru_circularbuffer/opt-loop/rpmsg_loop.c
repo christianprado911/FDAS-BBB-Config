@@ -103,7 +103,7 @@ int main(void)
 			if (result > 0) {
 				for (int i=0; i<result/2; i++) {
 					int data = ((uint16_t*)readBuf)[i];
-					printf("%d, %d, %d  Write the buffer\n", circularBuffer[writeIndex], bufferLength, writeIndex); // test
+					printf("%d, %d, %d  Write the buffer\n", data, bufferLength, writeIndex); // test
 					if(data > 3500 && trigger == 0){
 						trigger = 1;
 						snprintf(namefile, sizeof namefile, "%02d-%02d-%d_%02dh%02dm%02d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec);
