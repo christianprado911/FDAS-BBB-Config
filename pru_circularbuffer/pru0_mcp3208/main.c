@@ -124,35 +124,35 @@ uint16_t convert() {
 
 
         sclk_set(); // cycle clock (data transfer)
-        __delay_cycles(100); // 100 cycles = 500ns
+        __delay_cycles(10); // 100 cycles = 500ns
 
         // SGL / ~DIFF
         sclk_clr();
         mosi_set(); // Set SGL = 1 (single ended)
-        __delay_cycles(100); // 100 cycles = 500ns
+        __delay_cycles(10); // 100 cycles = 500ns
         sclk_set();
-        __delay_cycles(100); // 100 cycles = 500ns
+        __delay_cycles(10); // 100 cycles = 500ns
 
         // D2
         sclk_clr();
         mosi_clr(); // Set D2 = 0
-        __delay_cycles(100); // 100 cycles = 500ns
+        __delay_cycles(10); // 100 cycles = 500ns
         sclk_set();
-        __delay_cycles(100); // 100 cycles = 500ns
+        __delay_cycles(10); // 100 cycles = 500ns
 
         // D1
         sclk_clr();
         mosi_clr(); // Set D1 = 0
-        __delay_cycles(100); // 100 cycles = 500ns
+        __delay_cycles(10); // 100 cycles = 500ns
         sclk_set();
-        __delay_cycles(100); // 100 cycles = 500ns
+        __delay_cycles(10); // 100 cycles = 500ns
 
         // D0
         sclk_clr();
         mosi_clr(); // Set D0 = 0
-        __delay_cycles(100); // 100 cycles = 500ns
+        __delay_cycles(10); // 100 cycles = 500ns
         sclk_set();
-        __delay_cycles(100); // 100 cycles = 500ns
+        __delay_cycles(10); // 100 cycles = 500ns
 
 
         // Wait while device samples channel

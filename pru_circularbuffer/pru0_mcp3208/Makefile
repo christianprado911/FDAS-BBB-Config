@@ -80,6 +80,10 @@ printEnd:
 
 install_PRU0:
 	@echo ''
+	/usr/bin/config-pin p9.28 pruout
+	/usr/bin/config-pin p9.29 pruin
+	/usr/bin/config-pin p9.30 pruout
+	/usr/bin/config-pin p9.31 pruout
 #	@echo 'Stopping current PRU0 application ($(PRU0))
 #	@echo stop | sudo tee $(PRU0)/state
 	@echo 'Installing firmware'
@@ -91,6 +95,10 @@ install_PRU0:
 
 install_PRU1:
 	@echo ''
+	@echo   /usr/bin/config-pin p9.28 pruout
+	@echo   /usr/bin/config-pin p9.29 pruin
+	@echo   /usr/bin/config-pin p9.30 pruout
+	@echo   /usr/bin/config-pin p9.31 pruout
 #	@echo 'Stopping current PRU1 application ($(PRU1))'
 #	@echo stop | sudo tee $(PRU1)/state
 	@echo 'Installing firmware'

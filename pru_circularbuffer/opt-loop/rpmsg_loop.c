@@ -40,8 +40,8 @@
 #include <time.h>
 
 #define		BUFFER_PRU		100
-#define		MAX_BUFFER_SIZE		1000000		// 10 segundos (PRU 1MHz)
-#define		CIRCULAR_BUFFER		100000		// 1 Segundo (PRU 1MHz)
+#define		MAX_BUFFER_SIZE		685000		// 10 segundos (PRU 1MHz)
+#define		CIRCULAR_BUFFER		68500		// 1 Segundo (PRU 1MHz)
 #define		DEVICE_NAME		"/dev/rpmsg_pru123"
 
 	int	readBuf[BUFFER_PRU];
@@ -103,10 +103,11 @@ int main(void)
 			if (result > 0) {
 				for (int i=0; i<result/2; i++) {
 					int data = ((uint16_t*)readBuf)[i];
-					printf("%d, %d, %d  Write the buffer\n", data, bufferLength, writeIndex); // test
-					if(data > 3500 && trigger == 0){
+					//printf("%d, %d, %d, count %d\n", data, bufferLength, writeIndex, count); // test
+					if(trigger == 0 && data > 1500){
 						trigger = 1;
 						snprintf(namefile, sizeof namefile, "%02d-%02d-%d_%02dh%02dm%02d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec);
+						printf("Pulso Capturado, trigger %d\n\n", trigger);
 					}
 				/* Inicio do Buffer Circular (1 segundo) */
 				if(trigger == 0){
@@ -131,10 +132,11 @@ int main(void)
 		 printf("read error!!!\n");
         }while(count != MAX_BUFFER_SIZE);
 	/* Fim Iteração de coleta de dados. Gravação dos dados em arquivos=================*/
-
+	printf("Impressao dos valores de buffer de 1s\n");
 	buffer1(circularBuffer, bufferLength, namefile);
+	printf("Fim da impressao buffer 1 s \n Impressao dos valores de buffer 10s\n");
 	buffer10(buffer_10s, count, namefile);
-
+	printf("Fim da impressao");
 	/* Received all the messages the example is complete */
 	//printf("Received %d messages, closing %s\n", NUM_MESSAGES, DEVICE_NAME);
 

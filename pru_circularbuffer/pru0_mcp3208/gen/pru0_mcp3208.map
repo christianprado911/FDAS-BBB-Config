@@ -1,7 +1,7 @@
 ******************************************************************************
                      PRU Linker Unix v2.3.3                    
 ******************************************************************************
->> Linked Mon Mar 30 19:16:14 2020
+>> Linked Tue Jun  2 04:15:37 2020
 
 OUTPUT FILE NAME:   <gen/pru0_mcp3208.out>
 ENTRY POINT SYMBOL: "_c_int00_noinit_noargs"  address: 00000000
