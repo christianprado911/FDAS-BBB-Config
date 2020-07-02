@@ -5,7 +5,7 @@ int main (void){
 
 uint8_t mask[] = {8, 4, 2, 1};
 uint8_t BIT = 0b1000;
-BIT|=0;
+BIT|=1;
 
 	while (BIT) {
     	if (BIT & 1)
