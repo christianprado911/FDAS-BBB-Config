@@ -3,7 +3,7 @@
 
 int main (void){
 
-uint8_t mask[] = {8, 4, 2, 1};
+int i = 0;
 uint8_t BIT = 0b1000;
 BIT|=1;
 
@@ -12,13 +12,8 @@ BIT|=1;
         	printf("1");
     		else
         	printf("0");
-
+		i++;
     		BIT >>= 1;
 	}
-	printf("\n");
-
-    if ((BIT & mask[0]) != 0)
-	    printf("O bit eh um\n");
-	else
-	    printf("O bit eh zero\n");
+	printf("%d \n", i);
 }
