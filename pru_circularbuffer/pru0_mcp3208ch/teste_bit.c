@@ -5,7 +5,7 @@ int main (void){
 
 static unsigned char mask[] = {128, 64, 32, 16, 8, 4, 2, 1};
 uint8_t BIT = 0b1000;
-BIT|=7;
+BIT|=0;
 
 	while (BIT) {
     	if (BIT & 1)
