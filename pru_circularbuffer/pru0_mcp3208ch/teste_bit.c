@@ -14,6 +14,7 @@ for(int i =0; i<=3; i++){
     		BIT >>= 1;
 	}
 	printf("\n"); 
+	BIT = 0b1000;
 	BIT|=i;
 }
 }
