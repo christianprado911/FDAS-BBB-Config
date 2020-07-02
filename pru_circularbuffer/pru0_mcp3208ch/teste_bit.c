@@ -15,5 +15,5 @@ BIT|=1;
     		BIT >>= 1;
 		i++;
 	}
-	printf("\d %d \n", i);
+	printf("\n %d \n", i);
 }
