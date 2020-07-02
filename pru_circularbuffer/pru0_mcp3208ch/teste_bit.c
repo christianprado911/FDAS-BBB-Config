@@ -16,9 +16,9 @@ BIT|=7;
 	printf("\n");
 
     if ((BIT & mask[0]) != 0) {
-	    pritf("O bit eh um");
+	    printf("O bit eh um");
 	    else
-		    printf("O bit eh zero);
+		    printf("O bit eh zero");
 	}
 
 }
