@@ -12,8 +12,8 @@ BIT|=1;
         	printf("1");
     		else
         	printf("0");
-		i++;
     		BIT >>= 1;
+		i++;
 	}
-	printf("%d \n", i);
+	printf("\d %d \n", i);
 }
