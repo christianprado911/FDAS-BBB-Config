@@ -117,44 +117,35 @@ inline uint8_t miso_rd() {
 }
 
 uint16_t convert() {
-        sclk_clr(); // Initialize clock
+int ch = 1;
+uint8_t BIT = 0b1000; // Bit 
+for(int i = 1; i <= ch ; i++){
+		
+	sclk_clr(); // Initialize clock
         cs_clr(); // Set CS to low (active)
         mosi_set(); // Set MOSI to HIGH (start bit)
         __delay_cycles(30); // 30 cycles = 150ns
 
-
         sclk_set(); // cycle clock (data transfer)
         __delay_cycles(100); // 100 cycles = 500ns
 
-        // SGL / ~DIFF
+	while (BIT) {
+        // Configuration
         sclk_clr();
-        mosi_set(); // Set SGL = 1 (single ended)
-        __delay_cycles(100); // 100 cycles = 500ns
+	if (BIT & 1)
+        	mosi_set();
+		else
+		mosi_clc();
+	__delay_cycles(100); // 100 cycles = 500ns
         sclk_set();
         __delay_cycles(100); // 100 cycles = 500ns
-
-        // D2
-        sclk_clr();
-        mosi_clr(); // Set D2 = 0
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_set();
-        __delay_cycles(10); // 100 cycles = 500ns
-
-        // D1
-        sclk_clr();
-        mosi_clr(); // Set D1 = 0
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_set();
-        __delay_cycles(100); // 100 cycles = 500ns
-
-        // D0
-        sclk_clr();
-        mosi_clr(); // Set D0 = 0
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_set();
-        __delay_cycles(100); // 100 cycles = 500ns
-
-
+		BIT >>=1;
+	}
+	
+	// Channel change on bit configuration for next iteration 
+	BIT = 0b1000;
+	BIT|=i;
+	
         // Wait while device samples channel
         sclk_clr();
         __delay_cycles(100); // 100 cycles = 500ns
@@ -267,7 +258,7 @@ uint16_t convert() {
         sclk_clr();
 
         cs_set(); // Release SPI bus
-
+}
         return result;
 }
 
