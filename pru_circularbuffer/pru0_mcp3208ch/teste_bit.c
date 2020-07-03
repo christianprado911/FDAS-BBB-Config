@@ -5,7 +5,7 @@ int main (void){
 
 int i = 0;
 uint8_t BIT = 0b1000;
-for(int i =1; i<=7; i++){
+for(int i =1; i<=8; i++){
 	while (BIT) {
     	if (BIT & 1)
         	printf("1");
