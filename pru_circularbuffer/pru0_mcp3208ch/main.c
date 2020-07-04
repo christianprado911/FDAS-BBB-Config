@@ -116,10 +116,11 @@ inline uint8_t miso_rd() {
     return 0;
 }
 
-uint16_t convert() {
-int ch = 1;
-uint8_t BIT = 0b1000; // Bit 
-for(int i = 1; i <= ch ; i++){
+uint16_t convert(int ch) { // ch -> number of channels
+	
+	uint8_t BIT = 0b1000; // Setup Byte
+
+	for(int i = 1; i <= ch ; i++){
 		
 	sclk_clr(); // Initialize clock
         cs_clr(); // Set CS to low (active)
@@ -129,8 +130,8 @@ for(int i = 1; i <= ch ; i++){
         sclk_set(); // cycle clock (data transfer)
         __delay_cycles(100); // 100 cycles = 500ns
 
-	while (BIT) {
         // Configuration
+	while (BIT) {
         sclk_clr();
 	if (BIT & 1)
         	mosi_set();
@@ -144,7 +145,7 @@ for(int i = 1; i <= ch ; i++){
 	
 	// Channel change on bit configuration for next iteration 
 	BIT = 0b1000;
-	BIT|=i;
+	BIT |= i;
 	
         // Wait while device samples channel
         sclk_clr();
@@ -153,7 +154,7 @@ for(int i = 1; i <= ch ; i++){
         __delay_cycles(100); // 100 cycles = 500ns
         sclk_clr(); // Sampling completed
 
-        uint16_t result = 0;
+        uint16_t result[i] = 0;
 
         // Read null bit
         __delay_cycles(100); // 100 cycles = 500ns
@@ -162,104 +163,19 @@ for(int i = 1; i <= ch ; i++){
         __delay_cycles(100); // 100 cycles = 500ns
         sclk_clr();
 
-        // Read b11
+	for (int i=0; i<=11; i++) {
+        // Read b11, b10,...b0.
         __delay_cycles(100); // 100 cycles = 500ns
         sclk_set();
         result |= miso_rd();
         __delay_cycles(100); // 100 cycles = 500ns
         sclk_clr();
-
-        // Read b10
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_set();
-        result <<= 1;
-        result |= miso_rd();
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_clr();
-
-        // Read b9
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_set();
-        result <<= 1;
-        result |= miso_rd();
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_clr();
-
-        // Read b8
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_set();
-        result <<= 1;
-        result |= miso_rd();
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_clr();
-
-        // Read b7
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_set();
-        result <<= 1;
-        result |= miso_rd();
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_clr();
-
-        // Read b6
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_set();
-        result <<= 1;
-        result |= miso_rd();
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_clr();
-
-        // Read b5
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_set();
-        result <<= 1;
-        result |= miso_rd();
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_clr();
-
-        // Read b4
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_set();
-        result <<= 1;
-        result |= miso_rd();
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_clr();
-
-        // Read b3
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_set();
-        result <<= 1;
-        result |= miso_rd();
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_clr();
-
-        // Read b2
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_set();
-        result <<= 1;
-        result |= miso_rd();
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_clr();
-
-        // Read b1
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_set();
-        result <<= 1;
-        result |= miso_rd();
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_clr();
-
-        // Read b0
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_set();
-        result <<= 1;
-        result |= miso_rd();
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_clr();
-
+	}
         cs_set(); // Release SPI bus
-}
+	__delay_cycles(100); // 100 cycles = 500ns - CS Disable Time
+
         return result;
+	}
 }
 
 #define BUFFER_SZ 100
