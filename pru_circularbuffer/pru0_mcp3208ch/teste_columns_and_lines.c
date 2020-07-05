@@ -11,8 +11,8 @@ void buffer1 (int d[], int ch, int n)
 	FILE *fl1;
 	fl1 = fopen(buf, "w");
 
-	for(i = 0; i <= n/ch; i++){
-    		for(int j = 0; j <= ch; j++){
+	for(i = 0; i < n/ch; i++){
+    		for(int j = 0; j < ch; j++){
 			fprintf(fl1, "%d\t", d[k++]);
 	}fprintf(fl1, "\n");}
 	fclose(fl1);
