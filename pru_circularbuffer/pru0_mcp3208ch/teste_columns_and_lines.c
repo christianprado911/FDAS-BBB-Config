@@ -23,7 +23,7 @@ int main () {
 
    int n = 1000, ch = 10;
    /* a pointer to an int */
-   int *p[n];
+   int p[n];
    srand( (unsigned)time( 0 ) );
    
 	for (int i = 0; i < n; i++ ) {
