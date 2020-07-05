@@ -13,7 +13,7 @@ void buffer1 (int d[], int ch, int n)
 
 	for(i = 0; i < n/ch; i++){
     		for(int j = 0; j < ch; j++){
-			fprintf(fl1, "%3d\t", d[k++]);
+			fprintf(fl1, "%3.0d\t", d[k++]);
 	}fprintf(fl1, "\n");}
 	fclose(fl1);
 }
