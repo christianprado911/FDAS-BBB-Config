@@ -26,9 +26,9 @@ int main () {
    int p[n];
    srand( (unsigned)time( 0 ) );
    
-	for (int i = 0; i < n; i++ ) {
+	for (int i = 0; i <= n; i++ ) {
      		p[i] = rand();
-      printf( "*(p + %d) : %d\n", i, *(p + i));
+      //printf( "*(p + %d) : %d\n", i, *(p + i));
    }
 
    buffer1( p, ch, n );
