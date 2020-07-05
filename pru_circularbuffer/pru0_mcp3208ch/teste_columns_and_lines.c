@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stilib.h>
 
 /* function to generate and return random numbers */
 int * getRandom( ) {
@@ -7,7 +8,7 @@ int * getRandom( ) {
    int i;
 
    /* set the seed */
-   srand( (unsigned)time( NULL ) );
+   srand( time( NULL ) );
 
    for ( i = 0; i < 10; ++i) {
       r[i] = rand();
@@ -23,13 +24,13 @@ void buffer1 (int d[], int ch, int n)
 	char buf[30];
 	snprintf(buf, sizeof buf,  "print-columns.txt");
 	int i = 0, k = 0;
-	FILE *fl1;j
+	FILE *fl1;
 	fl1 = fopen(buf, "w");
 
 	for(i = 0; i <= n/ch; i++){
     for(int j = 0; j <= ch; j++){
-		fprintf(fl1, "%d\n", d[k++]);
-	}}
+		fprintf(fl1, "%d", d[k++]);
+	}fprintf(fl1, "\n");}
 	fclose(fl1);
 }
 
@@ -38,7 +39,7 @@ int main () {
 
    int n = 1000, ch = 10;
    /* a pointer to an int */
-   int *p[];
+   int *p[n];
 
     for (int i = 0; i < n; i++ ) {
      p[i] = getRandom();
