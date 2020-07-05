@@ -2,19 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-/* function to generate and return random numbers */
-int * getRandom() {
-
-   static int  r;
-   int i;
-
-   /* set the seed */
-   srand( (unsigned)time( 0 ) );
-
-      r = rand();
-      return r;
-}
-
 /* function to print a file with values */
 void buffer1 (int d[], int ch, int n)
 {
@@ -37,9 +24,10 @@ int main () {
    int n = 1000, ch = 10;
    /* a pointer to an int */
    int *p[n];
-
-    for (int i = 0; i < n; i++ ) {
-     p[i] = getRandom();
+   srand( (unsigned)time( 0 ) );
+   
+	for (int i = 0; i < n; i++ ) {
+     		p[i] = rand();
       printf( "*(p + %d) : %d\n", i, *(p + i));
    }
 
