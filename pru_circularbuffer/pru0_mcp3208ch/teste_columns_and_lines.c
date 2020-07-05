@@ -8,7 +8,7 @@ int * getRandom( ) {
 
    /* set the seed */
    srand( (unsigned)time( NULL ) );
-  
+
    for ( i = 0; i < 10; ++i) {
       r[i] = rand();
       printf( "r[%d] = %d\n", i, r[i]);
@@ -39,13 +39,13 @@ int main () {
    int n = 1000, ch = 10;
    /* a pointer to an int */
    int *p[];
-	
-   for (int i = 0; i < n; i++ ) {
+
+    for (int i = 0; i < n; i++ ) {
      p[i] = getRandom();
       printf( "*(p + %d) : %d\n", i, *(p + i));
    }
 
    buffer1(p, ch, n )
-	
+
    return 0;
 }
