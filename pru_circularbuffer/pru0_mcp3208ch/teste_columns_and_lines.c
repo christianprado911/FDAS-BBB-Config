@@ -8,7 +8,7 @@ int * getRandom() {
    int i;
 
    /* set the seed */
-   srand( (unsigned)time( NULL ) );
+   srand( (unsigned)time( 0 ) );
 
       r = rand();
       return r;
@@ -24,8 +24,8 @@ void buffer1 (int d[], int ch, int n)
 	fl1 = fopen(buf, "w");
 
 	for(i = 0; i <= n/ch; i++){
-    for(int j = 0; j <= ch; j++){
-		fprintf(fl1, "%d", d[k++]);
+    		for(int j = 0; j <= ch; j++){
+			fprintf(fl1, "%d", d[k++]);
 	}fprintf(fl1, "\n");}
 	fclose(fl1);
 }
@@ -42,7 +42,7 @@ int main () {
       printf( "*(p + %d) : %d\n", i, *(p + i));
    }
 
-   buffer1(p, ch, n )
+   buffer1( p, ch, n );
 
    return 0;
 }
