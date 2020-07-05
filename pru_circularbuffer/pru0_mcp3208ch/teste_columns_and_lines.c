@@ -4,7 +4,7 @@
 #include <time.h>
 
 /* function to print a file with values */
-void buffer1 (int d[], int ch, int n)
+void buffer1 (uint8_t d[], int ch, int n)
 {
 	char buf[30];
 	snprintf(buf, sizeof buf,  "print-columns.txt");
