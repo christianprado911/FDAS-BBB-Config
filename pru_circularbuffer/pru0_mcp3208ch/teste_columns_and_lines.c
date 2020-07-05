@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <stilib.h>
+#include <stdlib.h>
 
 /* function to generate and return random numbers */
 int * getRandom( ) {
