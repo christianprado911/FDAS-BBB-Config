@@ -2,20 +2,16 @@
 #include <stdlib.h>
 
 /* function to generate and return random numbers */
-int * getRandom( ) {
+int * getRandom() {
 
-   static int  r[10];
+   static int  r;
    int i;
 
    /* set the seed */
-   srand( time( NULL ) );
+   srand( (unsigned)time( NULL ) );
 
-   for ( i = 0; i < 10; ++i) {
-      r[i] = rand();
-      printf( "r[%d] = %d\n", i, r[i]);
-   }
-
-   return r;
+      r = rand();
+      return r;
 }
 
 /* function to print a file with values */
