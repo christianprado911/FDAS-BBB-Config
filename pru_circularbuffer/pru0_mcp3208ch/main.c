@@ -158,10 +158,13 @@ uint16_t convert() { // ch -> number of channels
         int null_bit = miso_rd();
         __delay_cycles(100); // 100 cycles = 500ns
         sclk_clr();
+
 	// Read b11, b10,...b0.
 	for( i=0; i<=11; i++) {
 	__delay_cycles(100); // 100 cycles = 500ns
 	sclk_set();
+		if(i!=0){
+		result <<= 1;}
 	result |= miso_rd();
 	__delay_cycles(100); // 100 cycles = 500ns
 	sclk_clr();
