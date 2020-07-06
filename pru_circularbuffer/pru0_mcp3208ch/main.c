@@ -211,7 +211,7 @@ void main(void)
 
 	/* Create the RPMsg channel between the PRU and ARM user space using the transport structure. */
 	while (pru_rpmsg_channel(RPMSG_NS_CREATE, &transport, CHAN_NAME, CHAN_DESC, CHAN_PORT) != PRU_RPMSG_SUCCESS);
-        while(1) {
+        //while(1) {
 		/* Check bit 31 of register R31 to see if the ARM has kicked us */
 		if (__R31 & HOST_INT) {
 			/* Clear the event status */
@@ -227,6 +227,6 @@ void main(void)
                           pru_rpmsg_send(&transport, dst, src, buffer, sizeof buffer);
                         }
 		}
-        }
+       // }
 	__halt();
 }
