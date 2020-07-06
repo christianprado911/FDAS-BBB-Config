@@ -120,28 +120,26 @@ uint16_t convert(int ch) { // ch -> number of channels
 	
 	uint8_t BIT = 0b1000; // Setup Byte
 
-	for(int i = 1; i <= ch ; i++){
-		
-	sclk_clr(); // Initialize clock
-        cs_clr(); // Set CS to low (active)
-        mosi_set(); // Set MOSI to HIGH (start bit)
-        __delay_cycles(30); // 30 cycles = 150ns
+		sclk_clr(); // Initialize clock
+		cs_clr(); // Set CS to low (active)
+		mosi_set(); // Set MOSI to HIGH (start bit)
+		__delay_cycles(30); // 30 cycles = 150ns
 
-        sclk_set(); // cycle clock (data transfer)
-        __delay_cycles(100); // 100 cycles = 500ns
+		sclk_set(); // cycle clock (data transfer)
+		__delay_cycles(100); // 100 cycles = 500ns
 
-        // Configuration
-	while (BIT) {
-        sclk_clr();
-	if (BIT & 1)
-        	mosi_set();
-		else
-		mosi_clc();
-	__delay_cycles(100); // 100 cycles = 500ns
-        sclk_set();
-        __delay_cycles(100); // 100 cycles = 500ns
-		BIT >>=1;
-	}
+		// Configuration
+		while (BIT) {
+		sclk_clr();
+		if (BIT & 1)
+			mosi_set();
+			else
+			mosi_clr();
+		__delay_cycles(100); // 100 cycles = 500ns
+		sclk_set();
+		__delay_cycles(100); // 100 cycles = 500ns
+			BIT >>=1;
+		}
 	
 	// Channel change on bit configuration for next iteration 
 	BIT = 0b1000;
@@ -163,19 +161,18 @@ uint16_t convert(int ch) { // ch -> number of channels
         __delay_cycles(100); // 100 cycles = 500ns
         sclk_clr();
 
-	for (int i=0; i<=11; i++) {
-        // Read b11, b10,...b0.
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_set();
-        result |= miso_rd();
-        __delay_cycles(100); // 100 cycles = 500ns
-        sclk_clr();
-	}
+		for (int i=0; i<=11; i++) {
+		// Read b11, b10,...b0.
+		__delay_cycles(100); // 100 cycles = 500ns
+		sclk_set();
+		result |= miso_rd();
+		__delay_cycles(100); // 100 cycles = 500ns
+		sclk_clr();
+		}
         cs_set(); // Release SPI bus
 	__delay_cycles(100); // 100 cycles = 500ns - CS Disable Time
 
         return result;
-	}
 }
 
 #define BUFFER_SZ 100
@@ -211,7 +208,7 @@ void main(void)
 
 	/* Create the RPMsg channel between the PRU and ARM user space using the transport structure. */
 	while (pru_rpmsg_channel(RPMSG_NS_CREATE, &transport, CHAN_NAME, CHAN_DESC, CHAN_PORT) != PRU_RPMSG_SUCCESS);
-        //while(1) {
+        while(1) {
 		/* Check bit 31 of register R31 to see if the ARM has kicked us */
 		if (__R31 & HOST_INT) {
 			/* Clear the event status */
@@ -220,13 +217,13 @@ void main(void)
 			if (pru_rpmsg_receive(&transport, &src, &dst, payload, &len) == PRU_RPMSG_SUCCESS) {
                           int i;
 				int ch = payload;
-                          for (i=0; i<BUFFER_SZ/ch; i++)
-				  for(int j=0; j<ch;j++)
+                          for (i=0; i<BUFFER_SZ/ch; i++){
+				  for(int j=0; j<ch;j++) {
                             		buffer[i] = convert(ch);
-
+				  }}
                           pru_rpmsg_send(&transport, dst, src, buffer, sizeof buffer);
                         }
 		}
-       // }
+        }
 	__halt();
 }
