@@ -38,7 +38,7 @@
 #include <string.h>
 #include <sys/poll.h>
 
-#define MAX_BUFFER_SIZE		512
+#define MAX_BUFFER_SIZE		100
 char readBuf[MAX_BUFFER_SIZE];
 
 #define NUM_MESSAGES		1
@@ -67,7 +67,7 @@ int main(void)
 	/* The RPMsg channel exists and the character device is opened */
 	printf("Opened %s, reading %d buffers\n\n", DEVICE_NAME, NUM_MESSAGES);
 
-        const char msg[] = "hello world!";
+        const char msg[] = 01;
         /* Send 'hello world!' to the PRU through the RPMsg channel */
         result = write(pollfds[0].fd, msg, sizeof msg);
         printf("write result = %d\n", result);
