@@ -154,7 +154,7 @@ uint16_t convert(int ch) { // ch -> number of channels
         __delay_cycles(100); // 100 cycles = 500ns
         sclk_clr(); // Sampling completed
 
-        uint16_t result[i] = 0;
+        uint16_t result= 0;
 
         // Read null bit
         __delay_cycles(100); // 100 cycles = 500ns
@@ -219,8 +219,10 @@ void main(void)
 			/* Receive all available messages, multiple messages can be sent per kick */
 			if (pru_rpmsg_receive(&transport, &src, &dst, payload, &len) == PRU_RPMSG_SUCCESS) {
                           int i;
-                          for (i=0; i<BUFFER_SZ; i++)
-                            buffer[i] = convert();
+				int ch = payload;
+                          for (i=0; i<BUFFER_SZ/ch; i++)
+				  for(int j=0; j<ch;j++)
+                            		buffer[i] = convert(ch);
 
                           pru_rpmsg_send(&transport, dst, src, buffer, sizeof buffer);
                         }
