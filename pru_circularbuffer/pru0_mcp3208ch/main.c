@@ -119,8 +119,8 @@ inline uint8_t miso_rd() {
 uint16_t convert() { // ch -> number of channels
 	
 	uint8_t BIT = 0b1000; // Setup Byte
-	/*BIT |= ch;
-	int i;*/
+	//BIT |= ch;
+	int i;
 
 		sclk_clr(); // Initialize clock
 		cs_clr(); // Set CS to low (active)
@@ -215,7 +215,7 @@ void main(void)
 			/* Receive all available messages, multiple messages can be sent per kick */
 			if (pru_rpmsg_receive(&transport, &src, &dst, payload, &len) == PRU_RPMSG_SUCCESS) {
 			//int ch = payload;
-			int i, j;
+			int i;
                           for (i=0; i<BUFFER_SZ; i++){
 				  //for(j=0; j<ch;j++) {
                             		buffer[i] = convert();
