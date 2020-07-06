@@ -67,7 +67,7 @@ int main(void)
 	/* The RPMsg channel exists and the character device is opened */
 	printf("Opened %s, reading %d buffers\n\n", DEVICE_NAME, NUM_MESSAGES);
 
-        const uint8_t msg[] = "02";
+        const uint8_t msg[] = "01";
         /* Send 'hello world!' to the PRU through the RPMsg channel */
         result = write(pollfds[0].fd, msg, sizeof msg);
         printf("write result = %d\n", result);
