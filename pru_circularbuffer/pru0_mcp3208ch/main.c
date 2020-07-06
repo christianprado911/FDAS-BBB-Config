@@ -120,6 +120,7 @@ uint16_t convert(int ch) { // ch -> number of channels
 	
 	uint8_t BIT = 0b1000; // Setup Byte
 	BIT |= ch;
+	int i;
 
 		sclk_clr(); // Initialize clock
 		cs_clr(); // Set CS to low (active)
@@ -157,15 +158,15 @@ uint16_t convert(int ch) { // ch -> number of channels
         int null_bit = miso_rd();
         __delay_cycles(100); // 100 cycles = 500ns
         sclk_clr();
-
-		for(int i=0; i<=11; i++) {
-		// Read b11, b10,...b0.
-		__delay_cycles(100); // 100 cycles = 500ns
-		sclk_set();
-		result |= miso_rd();
-		__delay_cycles(100); // 100 cycles = 500ns
-		sclk_clr();
-		}
+	
+	// Read b11, b10,...b0.
+	for( i=0; i<=11; i++) {
+	__delay_cycles(100); // 100 cycles = 500ns
+	sclk_set();
+	result |= miso_rd();
+	__delay_cycles(100); // 100 cycles = 500ns
+	sclk_clr();
+	}
 
         cs_set(); // Release SPI bus
 	__delay_cycles(100); // 100 cycles = 500ns - CS Disable Time
@@ -213,9 +214,9 @@ void main(void)
 			CT_INTC.SICR_bit.STS_CLR_IDX = FROM_ARM_HOST;
 			/* Receive all available messages, multiple messages can be sent per kick */
 			if (pru_rpmsg_receive(&transport, &src, &dst, payload, &len) == PRU_RPMSG_SUCCESS) {
-			int ch = payload;
-                          for (int i=0; i<BUFFER_SZ/ch; i++){
-				  for(int j=0; j<ch;j++) {
+			int ch = payload; i, j;
+                          for (i=0; i<BUFFER_SZ/ch; i++){
+				  for(j=0; j<ch;j++) {
                             		buffer[i] = convert(ch);
 				  }}
                           pru_rpmsg_send(&transport, dst, src, buffer, sizeof buffer);
