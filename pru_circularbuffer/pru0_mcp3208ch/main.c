@@ -119,6 +119,7 @@ inline uint8_t miso_rd() {
 uint16_t convert(int ch) { // ch -> number of channels
 	
 	uint8_t BIT = 0b1000; // Setup Byte
+	BIT |= i;
 
 		sclk_clr(); // Initialize clock
 		cs_clr(); // Set CS to low (active)
@@ -140,10 +141,6 @@ uint16_t convert(int ch) { // ch -> number of channels
 		__delay_cycles(100); // 100 cycles = 500ns
 			BIT >>=1;
 		}
-	
-	// Channel change on bit configuration for next iteration 
-	BIT = 0b1000;
-	BIT |= i;
 	
         // Wait while device samples channel
         sclk_clr();
