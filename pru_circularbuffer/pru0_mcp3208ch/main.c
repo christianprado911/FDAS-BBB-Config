@@ -150,7 +150,7 @@ uint16_t convert(int ch) { // ch -> number of channels
         __delay_cycles(100); // 100 cycles = 500ns
         sclk_clr(); // Sampling completed
 
-        uint16_t result= 0;
+        uint16_t result = 0;
 
         // Read null bit
         __delay_cycles(100); // 100 cycles = 500ns
@@ -214,7 +214,8 @@ void main(void)
 			CT_INTC.SICR_bit.STS_CLR_IDX = FROM_ARM_HOST;
 			/* Receive all available messages, multiple messages can be sent per kick */
 			if (pru_rpmsg_receive(&transport, &src, &dst, payload, &len) == PRU_RPMSG_SUCCESS) {
-			int ch = payload; i, j;
+			int ch = payload;
+			int i, j;
                           for (i=0; i<BUFFER_SZ/ch; i++){
 				  for(j=0; j<ch;j++) {
                             		buffer[i] = convert(ch);
