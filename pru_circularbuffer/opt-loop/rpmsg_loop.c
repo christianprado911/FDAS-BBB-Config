@@ -83,7 +83,7 @@ int main(void)
 	/* The RPMsg channel exists and the character device is opened */
 	printf("Opened %s, reading buffers\n\n", DEVICE_NAME);
 
-        const char msg[] = "PRU-ARM ADC CH 01";
+        const char msg[] = 01;
         /* Send 'msg' to the PRU through the RPMsg channel / Test only one channel 
         result = write(pollfds[0].fd, msg, sizeof msg);
         printf("write result = %d\n", result);*/
