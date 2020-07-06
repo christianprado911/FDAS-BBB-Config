@@ -78,7 +78,7 @@ int main(void)
 		if (result > 0) {
                   for (int i=0; i<result/2; i++) {
                     int data = ((uint16_t*)readBuf)[i];
-                    printf("%d\n", data);
+                    printf("%d\t%d\n", data, i);
                   }
                 } else
                   printf("read error!!!\n");
