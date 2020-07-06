@@ -116,11 +116,11 @@ inline uint8_t miso_rd() {
     return 0;
 }
 
-uint16_t convert(int ch) { // ch -> number of channels
+uint16_t convert() { // ch -> number of channels
 	
 	uint8_t BIT = 0b1000; // Setup Byte
-	BIT |= ch;
-	int i;
+	/*BIT |= ch;
+	int i;*/
 
 		sclk_clr(); // Initialize clock
 		cs_clr(); // Set CS to low (active)
@@ -214,12 +214,12 @@ void main(void)
 			CT_INTC.SICR_bit.STS_CLR_IDX = FROM_ARM_HOST;
 			/* Receive all available messages, multiple messages can be sent per kick */
 			if (pru_rpmsg_receive(&transport, &src, &dst, payload, &len) == PRU_RPMSG_SUCCESS) {
-			int ch = payload;
+			//int ch = payload;
 			int i, j;
-                          for (i=0; i<BUFFER_SZ/ch; i++){
-				  for(j=0; j<ch;j++) {
-                            		buffer[i] = convert(ch);
-				  }}
+                          for (i=0; i<BUFFER_SZ; i++){
+				  //for(j=0; j<ch;j++) {
+                            		buffer[i] = convert();
+				  }
                           pru_rpmsg_send(&transport, dst, src, buffer, sizeof buffer);
                         }
 		}
