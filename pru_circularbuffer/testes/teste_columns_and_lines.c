@@ -4,34 +4,34 @@
 #include <time.h>
 
 //Function to return if ch is equal to 1, 2 3 or 4
-int compare (int ch){
-	int t[4] = {1, 2, 3, 4};
+int compareD2 (int ch){
+	int t[] = {1, 2, 3, 4};
 	int i = 0, j = 0;
 	
 	for(i = 0; i <= 3; i++){
 		if(ch != t[i])
 			j = 1;
 	}
-	if(j=0)
-		return 0;
-	else
+	if(j=1)
 		return 1;
+	else
+		return 0;
 	
 }
 
 //Function to return if ch is equal to 1, 2 5 or 6
-int compare1 (int ch){
-	int t[4] = {1, 2, 5, 6};
+int compareD1 (int ch){
+	int t[] = {1, 2, 5, 6};
 	int i = 0, j = 0;
 	
 	for(i = 0; i <= 3; i++){
 		if(ch != t[i])
 			j = 1;
 	}
-	if(j=0)
-		return 0;
-	else
+	if(j=1)
 		return 1;
+	else
+		return 0;
 	
 }
 
@@ -108,24 +108,25 @@ int main () {
 	scanf("%d", &ch);
 	printf("----------------\n");
 	printf("D2\t");
-	int q = compare(ch);
-	if(q == 0)
-		printf("0");
-	else
+	int q = compareD2(ch);
+	if(q)
 		printf("1");
+	else
+		printf("0");
 	//insert delay cycles
 	printf("\nD1\t");
-	int o = compare1(ch);
-	if(o == 0)
-		printf("0");
-	else
+	int o = compareD1(ch);
+	if(o)
 		printf("1");
+	else
+		printf("0");
 	//insert delay cycles
 	printf("\nD0\t");
 	if(ch ==1 || ch%2 != 0)
 		printf("0");
 	else
 		printf("1");
+	printf("\n");
 	//insert delay cycles
 		
 	
