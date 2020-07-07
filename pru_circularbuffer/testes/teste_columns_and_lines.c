@@ -3,30 +3,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-//Function to return if ch is equal to 1, 2 3 or 4
-int compareD2 (int ch){
-	int j;
-	if(ch == 1 || ch == 2 || ch == 3 || ch == 4)
-		j = 0;
-	else
-		j = 1;
- 	
-	return j;
-	
-}
-
-//Function to return if ch is equal to 1, 2 5 or 6
-int compareD1 (int ch){
-	int t[] = {1, 2, 5, 6};
-	int i = 0, j = 0;
-	
-	/*for(i = 0; i <= 3; i++){
-		if(ch != t[i])
-			j = 1;
-	}*/
-	return j;
-}
-
 /* function to print a file with values 
 void buffer1 (uint8_t d[], int ch, int n)
 {
@@ -100,18 +76,16 @@ int main () {
 	scanf("%d", &ch);
 	printf("----------------\n");
 	printf("D2\t");
-	int q = compareD2(ch);
-	if(q)
-		printf("1");
-	else
+	if(ch == 1 || ch == 2 || ch == 3 || ch == 4)
 		printf("0");
+	else
+		printf("1");
 	//insert delay cycles
 	printf("\nD1\t");
-	int o = compareD1(ch);
-	if(o)
-		printf("1");
-	else
+	if(ch == 1 || ch == 2 || ch == 5 || ch == 6)
 		printf("0");
+	else
+		printf("1");
 	//insert delay cycles
 	printf("\nD0\t");
 	if(ch ==1 || ch%2 != 0)
