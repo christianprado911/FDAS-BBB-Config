@@ -22,7 +22,7 @@ void buffer1 (uint8_t d[], int ch, int n)
 /* main function to call above defined function */
 int main () {
 
-   int n = 1000, ch = 10;
+   int n = 1000;
    /* a pointer to an int */
    uint8_t p[n];
    srand( (unsigned)time( 0 ) );
@@ -65,12 +65,12 @@ int main () {
 		  bit = 0b0001;
 	}
 	//Teste do bit
-	while (BIT) {
-		if (BIT & 1){
+	while (bit) {
+		if (bit & 1){
 			printf("1\n");}
 			else{
 			printf("0\n");}
-			BIT >>=1;
+			bit >>=1;
 			}
 	printf("\n");
    buffer1( p, ch, n );
