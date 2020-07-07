@@ -30,7 +30,7 @@ int main () {
 	for (int i = 0; i <= n; i++ ) {
      		p[i] = rand();
       //printf( "*(p + %d) : %d\n", i, *(p + i));
-   }
+        }
 	uint8_t BIT;
 	char ch;
 	printf("Digite a quantidade de canais\n");
@@ -66,12 +66,12 @@ int main () {
 	}
 	//Teste do bit
 	while (BIT) {
-		if (BIT & 1){
-			printf("1");}
-			else{
-			printf("0");}
+		if (BIT & 1)
+			printf("1");
+			else
+			printf("0");
 			BIT >>=1;
-			}
+	}
 	printf("\n");
   // buffer1( p, ch, n );
 
