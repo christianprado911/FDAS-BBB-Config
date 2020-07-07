@@ -12,7 +12,7 @@ int compareD2 (int ch){
 	if(ch != t[i]){
 		j = 1;}
 	i++;
-	}while(j == 0 || i <= 3);
+	}while(j == 0 || i < ch);
 	
 	return j;
 	
