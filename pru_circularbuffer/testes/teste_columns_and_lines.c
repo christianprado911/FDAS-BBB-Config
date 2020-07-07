@@ -8,7 +8,7 @@ int compareD2 (int ch){
 	int t[] = {1, 2, 3, 4};
 	int i = 0, j = 0;
 	
-	while(j == 0 || i < ch){
+	while(j == 0 && i < ch){
 	if(ch != t[i]){
 		j = 1;}
 	i++;
