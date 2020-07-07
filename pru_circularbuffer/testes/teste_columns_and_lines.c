@@ -6,12 +6,13 @@
 //Function to return if ch is equal to 1, 2 3 or 4
 int compareD2 (int ch){
 	int t[] = {1, 2, 3, 4};
-	int i, j = 0;
+	int i = 0, j = 0;
 	
-	for(i = 0; i <= 3; i++){
-		if(ch != t[i]){
-			j = 1;}
-	}
+	do{
+	if(ch != t[i]){
+		j = 1;}
+	i++
+	}while(j == 0 || i <= 3)
 	return j;
 	
 }
