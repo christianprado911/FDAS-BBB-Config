@@ -31,8 +31,8 @@ int main () {
      		p[i] = rand();
       //printf( "*(p + %d) : %d\n", i, *(p + i));
    }
+	//Teste do bit
 	while (BIT) {
-		sclk_clr();
 		if (BIT & 1){
 			printf("1");}
 			else{
