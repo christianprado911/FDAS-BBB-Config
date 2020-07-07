@@ -34,9 +34,9 @@ int main () {
 	//Teste do bit
 	while (BIT) {
 		if (BIT & 1){
-			printf("1");}
+			printf("1\n");}
 			else{
-			printf("0");}
+			printf("0/n");}
 			BIT >>=1;
 			}
 	printf("\n");
