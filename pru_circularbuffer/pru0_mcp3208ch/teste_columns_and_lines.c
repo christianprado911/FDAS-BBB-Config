@@ -26,11 +26,13 @@ int main () {
    /* a pointer to an int */
    uint8_t p[n];
    srand( (unsigned)time( 0 ) );
-   uint8_t BIT = 0b1000;
+
 	for (int i = 0; i <= n; i++ ) {
      		p[i] = rand();
       //printf( "*(p + %d) : %d\n", i, *(p + i));
    }
+	uint8_t BIT = 0b1000;
+	BIT = ~BIT;
 	//Teste do bit
 	while (BIT) {
 		if (BIT & 1){
