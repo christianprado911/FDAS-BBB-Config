@@ -31,7 +31,14 @@ int main () {
      		p[i] = rand();
       //printf( "*(p + %d) : %d\n", i, *(p + i));
    }
-
+	while (BIT) {
+		sclk_clr();
+		if (BIT & 1){
+			printf("1");}
+			else{
+			printf(0);}
+			BIT >>=1;
+			}
    buffer1( p, ch, n );
 
    return 0;
