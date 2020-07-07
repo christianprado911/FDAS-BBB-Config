@@ -34,13 +34,13 @@ int main () {
 	uint8_t bit;
 	char ch;
 	printf("Digite a quantidade de canais\n");
-	scanf("%s \n", &ch);
+	scanf("%s", &ch);
   switch (ch) {
 
 	case 1: // statement sequence
 		  bit = 0b0001;
 	     break;
-	case 02: // statement sequence
+	case 2: // statement sequence
 		  bit = 0b1001;
 	     break;
 	case 3: // statement sequence
