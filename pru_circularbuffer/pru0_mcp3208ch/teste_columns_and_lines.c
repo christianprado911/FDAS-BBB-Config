@@ -38,31 +38,31 @@ int main () {
   switch (ch) {
 
 	case 1: // statement sequence
-		uint8_t  BIT = 0b0001;
+		BIT = 0b0001;
 	     break;
 	case 2: // statement sequence
-		uint8_t  BIT = 0b1001;
+		BIT = 0b1001;
 	     break;
 	case 3: // statement sequence
-		uint8_t  BIT = 0b0101;
+		BIT = 0b0101;
 	     break;
 	case 4: // statement sequence
-		uint8_t  BIT = 0b1101;
+		BIT = 0b1101;
 	     break;
 	case 5: // statement sequence
-		uint8_t  BIT = 0b0011;
+		BIT = 0b0011;
 	     break;
 	case 6: // statement sequence
-		uint8_t  BIT = 0b1011;
+		BIT = 0b1011;
 	     break;
 	case 7: // statement sequence
-		uint8_t  BIT = 0b0111;
+		BIT = 0b0111;
 	     break;
 	case 8: // statement sequence
-		uint8_t  BIT = 0b1111;
+		BIT = 0b1111;
 	     break;
 	default:    // default statement sequence
-		uint8_t BIT = 0b0001;
+		BIT = 0b0001;
 	}
 	//Teste do bit
 	while (BIT) {
