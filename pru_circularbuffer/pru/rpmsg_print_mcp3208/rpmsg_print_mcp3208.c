@@ -70,7 +70,7 @@ int main(void)
         const char msg[] = "1"; //numero de canais CH0 ate CHx (1 -> CH0; 2 -> CHO, CH1; 3 -> CH0, CH1, CH2;...)
         /* Send 'hello world!' to the PRU through the RPMsg channel */
         result = write(pollfds[0].fd, msg, sizeof msg);
-        printf("write result = %s\n", result);
+        printf("write result = %d\n", result);
 
 	for (i = 0; i < NUM_MESSAGES; i++) {
 		/* Poll until we receive a message from the PRU and then print it */
