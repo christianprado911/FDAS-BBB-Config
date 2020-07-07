@@ -36,7 +36,7 @@ int main () {
 		if (BIT & 1){
 			printf("1\n");}
 			else{
-			printf("0/n");}
+			printf("0\n");}
 			BIT >>=1;
 			}
 	printf("\n");
