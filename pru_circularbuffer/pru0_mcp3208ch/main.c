@@ -133,10 +133,10 @@ uint16_t convert() { // ch -> number of channels
 		// Configuration
 		while (BIT) {
 		sclk_clr();
-		if (BIT & 1)
-			mosi_set();
-			else
-			mosi_clr();
+		if (BIT & 1){
+			mosi_set();}
+			else{
+			mosi_clr();}
 		__delay_cycles(100); // 100 cycles = 500ns
 		sclk_set();
 		__delay_cycles(100); // 100 cycles = 500ns
