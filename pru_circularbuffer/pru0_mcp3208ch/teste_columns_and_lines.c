@@ -31,7 +31,39 @@ int main () {
      		p[i] = rand();
       //printf( "*(p + %d) : %d\n", i, *(p + i));
    }
-	uint8_t BIT = 0b0001;
+	uint8_t bit;
+	char ch;
+	printf("Digite a quantidade de canais\n");
+	scanf("%s \n", &ch);
+  switch (ch) {
+
+	case 01: // statement sequence
+		  bit = 0b0001;
+	     break;
+	case 02: // statement sequence
+		  bit = 0b1001;
+	     break;
+	case 03: // statement sequence
+		  bit = 0b0101;
+	     break;
+	case 04: // statement sequence
+		  bit = 0b1101;
+	     break;
+	case 05: // statement sequence
+		  bit = 0b0011;
+	     break;
+	case 06: // statement sequence
+		  bit = 0b1011;
+	     break;
+	case 07: // statement sequence
+		  bit = 0b0111;
+	     break;
+	case 08: // statement sequence
+		  bit = 0b1111;
+	     break;
+	default:    // default statement sequence
+		  bit = 0b0001;
+	}
 	//Teste do bit
 	while (BIT) {
 		if (BIT & 1){
