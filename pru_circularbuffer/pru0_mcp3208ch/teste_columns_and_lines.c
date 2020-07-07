@@ -39,6 +39,7 @@ int main () {
 			printf(0);}
 			BIT >>=1;
 			}
+	printf("\n");
    buffer1( p, ch, n );
 
    return 0;
