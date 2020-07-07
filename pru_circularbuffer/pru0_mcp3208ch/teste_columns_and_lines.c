@@ -26,7 +26,7 @@ int main () {
    /* a pointer to an int */
    uint8_t p[n];
    srand( (unsigned)time( 0 ) );
-   uint8_t BIT = 0x1000;
+   uint8_t BIT = 0b1000;
 	for (int i = 0; i <= n; i++ ) {
      		p[i] = rand();
       //printf( "*(p + %d) : %d\n", i, *(p + i));
@@ -36,7 +36,7 @@ int main () {
 		if (BIT & 1){
 			printf("1");}
 			else{
-			printf(0);}
+			printf("0");}
 			BIT >>=1;
 			}
 	printf("\n");
