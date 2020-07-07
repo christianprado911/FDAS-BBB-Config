@@ -4,7 +4,7 @@
 #include <time.h>
 
 //Function to return if ch is equal to 1, 2 3 or 4
-void compare (int ch){
+int compare (int ch){
 	int t[4] = {1, 2, 3, 4};
 	int i = 0, j = 0;
 	
@@ -20,7 +20,7 @@ void compare (int ch){
 }
 
 //Function to return if ch is equal to 1, 2 5 or 6
-void compare (int ch){
+int compare (int ch){
 	int t[4] = {1, 2, 5, 6};
 	int i = 0, j = 0;
 	
