@@ -286,7 +286,7 @@ uint16_t buffer[BUFFER_SZ];
 void main(void)
 {
 	struct pru_rpmsg_transport transport;
-	uint16_t src, dst, len;
+	uint16_t src, dst, len, CH;
 	volatile uint8_t *status;
 
 	/* AM335x must enable OCP master port access in order for the PRU to
