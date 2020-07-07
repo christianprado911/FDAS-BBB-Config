@@ -8,11 +8,11 @@ int compareD2 (int ch){
 	int t[] = {1, 2, 3, 4};
 	int i = 0, j = 0;
 	
-	do{
+	while(j == 0 || i < ch){
 	if(ch != t[i]){
 		j = 1;}
 	i++;
-	}while(j == 0 || i < ch);
+	}
 	
 	return j;
 	
