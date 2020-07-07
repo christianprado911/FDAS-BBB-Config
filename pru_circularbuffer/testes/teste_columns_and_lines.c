@@ -21,10 +21,10 @@ int compareD1 (int ch){
 	int t[] = {1, 2, 5, 6};
 	int i = 0, j = 0;
 	
-	for(i = 0; i <= 3; i++){
+	/*for(i = 0; i <= 3; i++){
 		if(ch != t[i])
 			j = 1;
-	}
+	}*/
 	return j;
 }
 
@@ -56,7 +56,7 @@ int main () {
         //printf( "*(p + %d) : %d\n", i, *(p + i));
         }
 	//uint8_t BIT;
-	int ch;
+	char ch;
 /*	printf("Digite a quantidade de canais\n");
 	scanf("%s", &ch);
   switch (ch) {
