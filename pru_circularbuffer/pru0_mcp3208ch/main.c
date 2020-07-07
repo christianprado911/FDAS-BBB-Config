@@ -120,7 +120,7 @@ uint16_t convert() { // ch -> number of channels
 	
 	uint8_t BIT = 0b1000; // Setup Byte
 	//BIT |= ch;
-	int i;
+	//int i;
 
 		sclk_clr(); // Initialize clock
 		cs_clr(); // Set CS to low (active)
@@ -150,28 +150,111 @@ uint16_t convert() { // ch -> number of channels
         __delay_cycles(100); // 100 cycles = 500ns
         sclk_clr(); // Sampling completed
 
-        uint16_t result = 0;
-
+         uint16_t result = 0;
+        
         // Read null bit
         __delay_cycles(100); // 100 cycles = 500ns
         sclk_set();
         int null_bit = miso_rd();
         __delay_cycles(100); // 100 cycles = 500ns
         sclk_clr();
+        
+        // Read b11
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_set();
+        result |= miso_rd();
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_clr();
+        
+        // Read b10
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_set();
+        result <<= 1;
+        result |= miso_rd();
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_clr();
 
-	// Read b11, b10,...b0.
-	for( i=0; i<=11; i++) {
-	__delay_cycles(100); // 100 cycles = 500ns
-	sclk_set();
-		if(i!=0){
-		result <<= 1;}
-	result |= miso_rd();
-	__delay_cycles(100); // 100 cycles = 500ns
-	sclk_clr();
-	}
+        // Read b9
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_set();
+        result <<= 1;
+        result |= miso_rd();
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_clr();
+
+        // Read b8
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_set();
+        result <<= 1;
+        result |= miso_rd();
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_clr();
+
+        // Read b7
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_set();
+        result <<= 1;
+        result |= miso_rd();
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_clr();
+
+        // Read b6
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_set();
+        result <<= 1;
+        result |= miso_rd();
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_clr();
+
+        // Read b5
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_set();
+        result <<= 1;
+        result |= miso_rd();
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_clr();
+        
+        // Read b4
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_set();
+        result <<= 1;
+        result |= miso_rd();
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_clr();
+        
+        // Read b3
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_set();
+        result <<= 1;
+        result |= miso_rd();
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_clr();
+        
+        // Read b2
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_set();
+        result <<= 1;
+        result |= miso_rd();
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_clr();
+        
+        // Read b1
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_set();
+        result <<= 1;
+        result |= miso_rd();
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_clr();
+
+        // Read b0
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_set();
+        result <<= 1;
+        result |= miso_rd();
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_clr();
 
         cs_set(); // Release SPI bus
-	__delay_cycles(100); // 100 cycles = 500ns - CS Disable Time
 
         return result;
 }
