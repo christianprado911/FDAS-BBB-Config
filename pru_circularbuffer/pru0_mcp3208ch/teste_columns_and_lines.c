@@ -3,7 +3,39 @@
 #include <stdlib.h>
 #include <time.h>
 
-/* function to print a file with values */
+//Function to return if ch is equal to 1, 2 3 or 4
+void compare (int ch){
+	int t[4] = {1, 2, 3, 4};
+	int i = 0, j = 0;
+	
+	for(i = 0; i <= 3; i++){
+		if(ch != t[i])
+			j = 1;
+	}
+	if(j=0)
+		return 0;
+	else
+		return 1;
+	
+}
+
+//Function to return if ch is equal to 1, 2 5 or 6
+void compare (int ch){
+	int t[4] = {1, 2, 5, 6};
+	int i = 0, j = 0;
+	
+	for(i = 0; i <= 3; i++){
+		if(ch != t[i])
+			j = 1;
+	}
+	if(j=0)
+		return 0;
+	else
+		return 1;
+	
+}
+
+/* function to print a file with values 
 void buffer1 (uint8_t d[], int ch, int n)
 {
 	char buf[30];
@@ -17,7 +49,7 @@ void buffer1 (uint8_t d[], int ch, int n)
 			fprintf(fl1, "%3d\t", d[k++]);
 	}fprintf(fl1, "\n");}
 	fclose(fl1);
-}
+}*/
 
 /* main function to call above defined function */
 int main () {
@@ -29,11 +61,11 @@ int main () {
 
 	for (int i = 0; i <= n; i++ ) {
      		p[i] = rand();
-      //printf( "*(p + %d) : %d\n", i, *(p + i));
+        //printf( "*(p + %d) : %d\n", i, *(p + i));
         }
-	uint8_t BIT;
+	//uint8_t BIT;
 	char ch;
-	printf("Digite a quantidade de canais\n");
+/*	printf("Digite a quantidade de canais\n");
 	scanf("%s", &ch);
   switch (ch) {
 
@@ -72,7 +104,33 @@ int main () {
 			printf("0");
 			BIT >>=1;
 	}
-	printf("\n");
+	printf("\n"); */
+	printf("Teste de selecao de canal\n");
+	printf("insira o canal, 1 a 8\n");
+	scanf("%d", &ch);
+	printf("----------------\n");
+	printf("D2\n");
+	int p = compare(ch);
+	if(p == 0)
+		printf("0");
+	else
+		printf("1");
+	//insert delay cycles
+	printf("D1\n");
+	int o = compare1(ch);
+	if(p == 0)
+		printf("0");
+	else
+		printf("1");
+	//insert delay cycles
+	printf("D0\n");
+	if(ch%2 != 0)
+		printf("0");
+	else
+		printf("1");
+	//insert delay cycles
+		
+	
   // buffer1( p, ch, n );
 
    return 0;
