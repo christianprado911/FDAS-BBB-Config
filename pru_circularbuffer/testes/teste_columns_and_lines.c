@@ -12,10 +12,7 @@ int compareD2 (int ch){
 		if(ch != t[i])
 			j = 1;
 	}
-	if(j=1)
-		return 1;
-	else
-		return 0;
+	return j;
 	
 }
 
@@ -28,11 +25,7 @@ int compareD1 (int ch){
 		if(ch != t[i])
 			j = 1;
 	}
-	if(j=1)
-		return 1;
-	else
-		return 0;
-	
+	return j;
 }
 
 /* function to print a file with values 
