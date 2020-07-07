@@ -324,7 +324,6 @@ void main(void)
                             		buffer[i] = convert(CH);
 				  }
                           pru_rpmsg_send(&transport, dst, src, buffer, sizeof buffer);
-				pru_rpmsg_send(&transport, dst, src, CH, sizeof CH);
                         }
 		}
         }
