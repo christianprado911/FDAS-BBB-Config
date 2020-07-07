@@ -11,7 +11,7 @@ int compareD2 (int ch){
 	do{
 	if(ch != t[i]){
 		j = 1;}
-	i++
+	i++;
 	}while(j == 0 || i <= 3)
 	return j;
 	
