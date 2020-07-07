@@ -31,8 +31,7 @@ int main () {
      		p[i] = rand();
       //printf( "*(p + %d) : %d\n", i, *(p + i));
    }
-	uint8_t BIT = 0b1000;
-	BIT = ~BIT;
+	uint8_t BIT = 0b0001;
 	//Teste do bit
 	while (BIT) {
 		if (BIT & 1){
