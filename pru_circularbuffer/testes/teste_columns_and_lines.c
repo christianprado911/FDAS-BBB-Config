@@ -107,22 +107,22 @@ int main () {
 	printf("insira o canal, 1 a 8\n");
 	scanf("%d", &ch);
 	printf("----------------\n");
-	printf("D2\n");
+	printf("D2\t");
 	int q = compare(ch);
 	if(q == 0)
 		printf("0");
 	else
 		printf("1");
 	//insert delay cycles
-	printf("D1\n");
+	printf("\nD1\t");
 	int o = compare1(ch);
 	if(o == 0)
 		printf("0");
 	else
 		printf("1");
 	//insert delay cycles
-	printf("D0\n");
-	if(ch%2 != 0)
+	printf("\nD0\t");
+	if(ch ==1 || ch%2 != 0)
 		printf("0");
 	else
 		printf("1");
