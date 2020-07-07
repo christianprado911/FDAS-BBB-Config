@@ -43,22 +43,22 @@ int main () {
 	case "02": // statement sequence
 		  bit = 0b1001;
 	     break;
-	case "03": // statement sequence
+	case 03: // statement sequence
 		  bit = 0b0101;
 	     break;
-	case "04": // statement sequence
+	case 04: // statement sequence
 		  bit = 0b1101;
 	     break;
-	case "05": // statement sequence
+	case 05: // statement sequence
 		  bit = 0b0011;
 	     break;
-	case "06": // statement sequence
+	case 06: // statement sequence
 		  bit = 0b1011;
 	     break;
-	case "07": // statement sequence
+	case 07: // statement sequence
 		  bit = 0b0111;
 	     break;
-	case "08": // statement sequence
+	case 08: // statement sequence
 		  bit = 0b1111;
 	     break;
 	default:    // default statement sequence
