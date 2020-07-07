@@ -37,10 +37,10 @@ int main () {
 	scanf("%s \n", &ch);
   switch (ch) {
 
-	case "01": // statement sequence
+	case 01: // statement sequence
 		  bit = 0b0001;
 	     break;
-	case "02": // statement sequence
+	case 02: // statement sequence
 		  bit = 0b1001;
 	     break;
 	case 03: // statement sequence
