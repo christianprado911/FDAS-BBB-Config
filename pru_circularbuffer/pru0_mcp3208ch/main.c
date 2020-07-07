@@ -116,11 +116,9 @@ inline uint8_t miso_rd() {
     return 0;
 }
 
-uint16_t convert() { // ch -> number of channels
+uint16_t convert(char CH) { // ch -> number of channels
 	
-	uint8_t BIT = 0b0001; // Setup Byte
-	//BIT |= ch;
-	//int i;
+	int ch = CH - '0';
 
 	sclk_clr(); // Initialize clock
 	cs_clr(); // Set CS to low (active)
@@ -139,7 +137,29 @@ uint16_t convert() { // ch -> number of channels
 
 	// Channel Selection D2, D1, D0 configure
 	sclk_clr();
-	
+	if(ch == 1 || ch == 2 || ch == 3 || ch == 4)  // D2
+		mosi_clr();
+	else
+		mosi_set();
+	__delay_cycles(100); // 100 cycles = 500ns
+        sclk_set();
+        __delay_cycles(100); // 100 cycles = 500ns
+
+	if(ch == 1 || ch == 2 || ch == 5 || ch == 6)  // D1
+		mosi_clr();
+	else
+		mosi_set();
+	__delay_cycles(100); // 100 cycles = 500ns
+        sclk_set();
+        __delay_cycles(100); // 100 cycles = 500ns
+
+	if(ch ==1 || ch%2 != 0)  //D0
+		mosi_clr();
+	else
+		mosi_set();
+	__delay_cycles(100); // 100 cycles = 500ns
+        sclk_set();
+        __delay_cycles(100); // 100 cycles = 500ns
 
         // Wait while device samples channel
         sclk_clr();
@@ -297,11 +317,11 @@ void main(void)
 			CT_INTC.SICR_bit.STS_CLR_IDX = FROM_ARM_HOST;
 			/* Receive all available messages, multiple messages can be sent per kick */
 			if (pru_rpmsg_receive(&transport, &src, &dst, payload, &len) == PRU_RPMSG_SUCCESS) {
-			//int ch = payload;
+			char CH = payload;
 			int i;
                           for (i=0; i<BUFFER_SZ; i++){
 				  //for(j=0; j<ch;j++) {
-                            		buffer[i] = convert();
+                            		buffer[i] = convert(CH);
 				  }
                           pru_rpmsg_send(&transport, dst, src, buffer, sizeof buffer);
                         }
