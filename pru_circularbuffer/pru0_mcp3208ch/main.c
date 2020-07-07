@@ -118,31 +118,29 @@ inline uint8_t miso_rd() {
 
 uint16_t convert() { // ch -> number of channels
 	
-	uint8_t BIT = 0b1000; // Setup Byte
+	uint8_t BIT = 0b0001; // Setup Byte
 	//BIT |= ch;
 	//int i;
 
-		sclk_clr(); // Initialize clock
-		cs_clr(); // Set CS to low (active)
-		mosi_set(); // Set MOSI to HIGH (start bit)
-		__delay_cycles(30); // 30 cycles = 150ns
+	sclk_clr(); // Initialize clock
+	cs_clr(); // Set CS to low (active)
+	mosi_set(); // Set MOSI to HIGH (start bit)
+	__delay_cycles(30); // 30 cycles = 150ns
 
-		sclk_set(); // cycle clock (data transfer)
-		__delay_cycles(100); // 100 cycles = 500ns
+	sclk_set(); // cycle clock (data transfer)
+	__delay_cycles(100); // 100 cycles = 500ns
 
-		// Configuration
-		while (BIT) {
-		sclk_clr();
-		if (BIT & 1){
-			mosi_set();}
-			else{
-			mosi_clr();}
-		__delay_cycles(100); // 100 cycles = 500ns
-		sclk_set();
-		__delay_cycles(100); // 100 cycles = 500ns
-			BIT >>=1;
-		}
+	// SGL / ~DIFF
+        sclk_clr();
+        mosi_set(); // Set SGL = 1 (single ended)
+        __delay_cycles(100); // 100 cycles = 500ns
+        sclk_set();
+        __delay_cycles(100); // 100 cycles = 500ns
+
+	// Channel Selection D2, D1, D0 configure
+	sclk_clr();
 	
+
         // Wait while device samples channel
         sclk_clr();
         __delay_cycles(100); // 100 cycles = 500ns
