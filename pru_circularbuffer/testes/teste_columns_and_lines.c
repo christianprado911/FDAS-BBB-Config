@@ -20,7 +20,7 @@ int compare (int ch){
 }
 
 //Function to return if ch is equal to 1, 2 5 or 6
-int compare (int ch){
+int compare1 (int ch){
 	int t[4] = {1, 2, 5, 6};
 	int i = 0, j = 0;
 	
@@ -108,15 +108,15 @@ int main () {
 	scanf("%d", &ch);
 	printf("----------------\n");
 	printf("D2\n");
-	int p = compare(ch);
-	if(p == 0)
+	int q = compare(ch);
+	if(q == 0)
 		printf("0");
 	else
 		printf("1");
 	//insert delay cycles
 	printf("D1\n");
 	int o = compare1(ch);
-	if(p == 0)
+	if(o == 0)
 		printf("0");
 	else
 		printf("1");
