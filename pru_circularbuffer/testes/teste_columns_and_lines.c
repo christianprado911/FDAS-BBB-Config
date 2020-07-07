@@ -56,7 +56,7 @@ int main () {
         //printf( "*(p + %d) : %d\n", i, *(p + i));
         }
 	//uint8_t BIT;
-	char ch;
+	int ch;
 /*	printf("Digite a quantidade de canais\n");
 	scanf("%s", &ch);
   switch (ch) {
