@@ -317,7 +317,7 @@ void main(void)
 			CT_INTC.SICR_bit.STS_CLR_IDX = FROM_ARM_HOST;
 			/* Receive all available messages, multiple messages can be sent per kick */
 			if (pru_rpmsg_receive(&transport, &src, &dst, payload, &len) == PRU_RPMSG_SUCCESS) {
-			char CH = payload;
+			char CH = &payload;
 			int i;
                           for (i=0; i<BUFFER_SZ; i++){
 				  //for(j=0; j<ch;j++) {
