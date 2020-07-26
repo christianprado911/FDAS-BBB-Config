@@ -31,7 +31,7 @@ int main(void) {
   }
 
   uint64_t last_ts = 0;
-  for(;;) {
+ // for(;;) {
     /* Kick the PRU through the RPMsg channel */
     int result = write(fd, 0, 0);
     if (result < 0) {
@@ -43,11 +43,13 @@ int main(void) {
     result = read(fd, readBuf, sizeof readBuf);
     if (result == sizeof(Buffer)) {
       Buffer *b = (Buffer *) readBuf;
-      for (int i=0; i<4; i++)
+      for (int i=0; i<DATA_BUFFER_LEN; i++)
         printf("ch%d=%4" PRIu16 ", ", i, b->data[i]);
       printf("ts=%" PRIu64 ",\t", b->timestamp_ns);
-      printf("delta=%" PRIu64 ",\n", b->timestamp_ns - last_ts);
+      printf("delta=%" PRIu64, b->timestamp_ns - last_ts);
 
+      if(i % NUM_SCAN_ELEMENTS == NUM_SCAN_ELEMENTS -1)
+      printf("\n");
       last_ts = b->timestamp_ns;
     } else if (result < 0) {
       perror("Error reading from device");
@@ -56,7 +58,7 @@ int main(void) {
       unsigned bufsz = sizeof(Buffer);
       printf("[[read only %d bytes, buffer size %u]]\n", result, bufsz);
     }
-  }
+//  }
   
   fsync(0);
   close(fd);
