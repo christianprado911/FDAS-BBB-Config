@@ -43,14 +43,14 @@ int main(void) {
     result = read(fd, readBuf, sizeof readBuf);
     if (result == sizeof(Buffer)) {
       Buffer *b = (Buffer *) readBuf;
-      for (i=0; i<DATA_BUFFER_LEN; i++)
+      for (i=0; i<DATA_BUFFER_LEN; i++){
         j = i % NUM_SCAN_ELEMENTS;
         printf("ch%d=%4" PRIu16 ", ", j , b->data[i]);
+      if(j == NUM_SCAN_ELEMENTS - 1){
       printf("ts=%" PRIu64 ",\t", b->timestamp_ns);
       printf("delta=%" PRIu64, b->timestamp_ns - last_ts);
-      if(j == NUM_SCAN_ELEMENTS - 1)
-        printf("\n");
-      
+        printf("\n");}
+      }
       last_ts = b->timestamp_ns;
     } else if (result < 0) {
       perror("Error reading from device");
