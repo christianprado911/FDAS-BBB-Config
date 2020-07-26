@@ -38,16 +38,15 @@ int main(void) {
       perror("Error writing to PRU");
       return -1;
     }
-    
+    int i;
     // Read the data from the PRU.
     result = read(fd, readBuf, sizeof readBuf);
     if (result == sizeof(Buffer)) {
       Buffer *b = (Buffer *) readBuf;
-      for (int i=0; i<DATA_BUFFER_LEN; i++)
+      for (i=0; i<DATA_BUFFER_LEN; i++)
         printf("ch%d=%4" PRIu16 ", ", i, b->data[i]);
       printf("ts=%" PRIu64 ",\t", b->timestamp_ns);
       printf("delta=%" PRIu64, b->timestamp_ns - last_ts);
-
       if(i % NUM_SCAN_ELEMENTS == NUM_SCAN_ELEMENTS -1)
       printf("\n");
       last_ts = b->timestamp_ns;
