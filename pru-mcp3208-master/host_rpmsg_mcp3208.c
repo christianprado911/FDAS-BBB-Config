@@ -43,15 +43,17 @@ void buffer1 (int d[][], int n, char namefile[])
 	FILE *fl1;
 	fl1 = fopen(buf, "w");
 
-	for(i = 0; i <= ; i++){
-		fprintf(fl1, "%d\n", d[i]);
+	for(i = 0; i <= n ; i++){
+		fprintf(fl1, "%d/t", d[i % NUM_SCAN_ELEMENTS][i % CIRCULAR_BUFFER]);
+    if(i % NUM_SCAN_ELEMENTS == NUM_SCAN_ELEMENTS -1)
+      fprintf(fl1, "\n");
 	}
 	fclose(fl1);
 }
 /* Fim da impressão do Buffer circular */
 
 //Função que grava os arquivos do buffer_10s
-void buffer10 (int d[], int n, char namefile[])
+void buffer10 (int d[][], int n, char namefile[])
 {
 	char buf[30];
 	snprintf(buf, sizeof buf,  "%s-2.txt", namefile);
@@ -59,8 +61,10 @@ void buffer10 (int d[], int n, char namefile[])
 	FILE *fl2;
 	fl2 = fopen(buf, "w");
 
-	for(i = 0; i <= n; i++){
-		fprintf(fl2, "%d\n", d[i]);
+	for(i = 0; i <= n ; i++){
+		fprintf(fl2, "%d/t", d[i % NUM_SCAN_ELEMENTS][i % CIRCULAR_BUFFER]);
+    if(i % NUM_SCAN_ELEMENTS == NUM_SCAN_ELEMENTS -1)
+      fprintf(fl2, "\n");
 	}
 	fclose(fl2);
 }
@@ -99,20 +103,19 @@ int main(void) {
          snprintf(namefile, sizeof namefile, "%02d-%02d-%d_%02dh%02dm%02d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec);
          printf("Pulso Capturado, trigger %d\n\n", trigger);
          last_ts = b->timestamp_ns;}
-        /* Inicio da coleta dos 10 segundos real-time */
+        /* Inicio da coleta do 1 segundos buffer circular */
         if(trigger == 0){
         ch[i % NUM_SCAN_ELEMENTS][writeIndex % CIRCULAR_BUFFER] = b->data[i];
         writeIndex++;
-        if(b->timestamp_ns - last_ts < CIRCULAR_BUFFER){ //-----------------------------------------------------------
+        if(b->timestamp_ns - last_ts < CIRCULAR_BUFFER){
           bufferLength++;}
         if (writeIndex == bufferLength) {
-          writeIndex = 0;}
-        }
+          writeIndex = 0;}}
         /* Inicio da coleta dos 10 segundos real-time */
         if(trigger == 1){
-          buffer_10s[count] = b->data[i];
-          count++;}/* Fim Coleta */
-     } //fim da captura de um buffer da pru0
+          buffer_10s[i % NUM_SCAN_ELEMENTS][i % MAX_BUFFER_SIZE] = b->data[i];
+          if(b->timestamp_ns - last_ts < CIRCULAR_BUFFER){
+          count++;}/* Fim Coleta */} //fim da captura de um buffer da pru0
       //last_ts = b->timestamp_ns;//apenas para teste
       if(count == MAX_BUFFER_SIZE){
         printf("Impressao dos valores de buffer de 1s\n");
