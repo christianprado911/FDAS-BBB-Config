@@ -33,7 +33,7 @@ int main(void) {
   }
 
   uint64_t last_ts = 0;
- // for(;;) {
+  for(;;) {
     /* Kick the PRU through the RPMsg channel */
     int result = write(fd, 0, 0);
     if (result < 0) {
@@ -61,7 +61,7 @@ int main(void) {
       unsigned bufsz = sizeof(Buffer);
       printf("[[read only %d bytes, buffer size %u]]\n", result, bufsz);
     }
-//  }
+  }
   
   fsync(0);
   close(fd);
