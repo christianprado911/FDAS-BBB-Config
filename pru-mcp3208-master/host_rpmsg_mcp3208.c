@@ -22,6 +22,13 @@ typedef struct {
   uint16_t data[DATA_BUFFER_LEN];
 } Buffer;
 
+typedef struct {
+  uint16_t ch0[NUM_SCANS];
+  uint16_t ch1[NUM_SCANS];
+  uint16_t ch2[NUM_SCANS];
+  uint16_t ch3[NUM_SCANS];
+} Circularbuffer;
+
 int main(void) {
   /* Open the rpmsg_pru character device file */
   int fd = open(DEVICE_NAME, O_RDWR);
@@ -43,10 +50,9 @@ int main(void) {
     if (result == sizeof(Buffer)) {
       Buffer *b = (Buffer *) readBuf;
       for (int i=0; i<DATA_BUFFER_LEN; i++){
-      int cb = b->data[i];
-      int j = i % NUM_SCAN_ELEMENTS;
-        printf("ch%d=%4" PRIu16 ", ", j , cb);
-      if(j == NUM_SCAN_ELEMENTS - 1){
+      Circularbuffer.ch[i % NUM_SCAN_ELEMENTS][i % NUM_SCANS] = b->data[i];
+        printf("ch%d=%4" PRIu16 ", ", i % NUM_SCAN_ELEMENTS , Circularbuffer.ch[i % NUM_SCAN_ELEMENTS][i % NUM_SCANS]);
+      if(i % NUM_SCAN_ELEMENTS == NUM_SCAN_ELEMENTS - 1){
       printf("ts=%" PRIu64 ",\t", b->timestamp_ns);
       printf("delta=%" PRIu64, b->timestamp_ns - last_ts);
       printf("\n");}
