@@ -43,8 +43,8 @@ int main(void) {
     if (result == sizeof(Buffer)) {
       Buffer *b = (Buffer *) readBuf;
       for (int i=0; i<DATA_BUFFER_LEN; i++){
-        int cb = b->data[i]
-      int  j = i % NUM_SCAN_ELEMENTS;
+      int cb = b->data[i];
+      int j = i % NUM_SCAN_ELEMENTS;
         printf("ch%d=%4" PRIu16 ", ", j , cb);
       if(j == NUM_SCAN_ELEMENTS - 1){
       printf("ts=%" PRIu64 ",\t", b->timestamp_ns);
