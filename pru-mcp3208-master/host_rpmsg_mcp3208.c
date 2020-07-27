@@ -51,8 +51,8 @@ int main(void) {
       printf("ts=%" PRIu64 ",\t", b->timestamp_ns);
       printf("delta=%" PRIu64, b->timestamp_ns - last_ts);
       printf("\n");}
+        last_ts = b->timestamp_ns;
       }
-      last_ts = b->timestamp_ns;
     } else if (result < 0) {
       perror("Error reading from device");
       return -1;
