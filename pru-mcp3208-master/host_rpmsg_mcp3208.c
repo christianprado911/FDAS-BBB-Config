@@ -46,7 +46,7 @@ int main(void) {
       Buffer *b = (Buffer *) readBuf;
       for (int i=0; i<DATA_BUFFER_LEN; i++){
       ch[i % NUM_SCAN_ELEMENTS][i % NUM_SCANS] = b->data[i];
-        printf("ch%d=%4" PRIu16 ", ", i % NUM_SCAN_ELEMENTS , Circularbuffer.ch[i % NUM_SCAN_ELEMENTS][i % NUM_SCANS]);
+        printf("ch%d=%4" PRIu16 ", ", i % NUM_SCAN_ELEMENTS , ch[i % NUM_SCAN_ELEMENTS][i % NUM_SCANS]);
       if(i % NUM_SCAN_ELEMENTS == NUM_SCAN_ELEMENTS - 1){
       printf("ts=%" PRIu64 ",\t", b->timestamp_ns);
       printf("delta=%" PRIu64, b->timestamp_ns - last_ts);
