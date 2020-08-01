@@ -12,8 +12,8 @@
 uint8_t readBuf[512];
 #define DEVICE_NAME  "/dev/rpmsg_pru1"
 
-#define NUM_SCAN_ELEMENTS  4
-#define NUM_SCANS          60
+#define NUM_SCAN_ELEMENTS  6
+#define NUM_SCANS          40
 #define DATA_BUFFER_LEN    (NUM_SCAN_ELEMENTS * NUM_SCANS)
 #define BUFFER_WORD_LEN    2 + DATA_BUFFER_LEN/2
 
@@ -43,11 +43,12 @@ int main(void) {
     result = read(fd, readBuf, sizeof readBuf);
     if (result == sizeof(Buffer)) {
       Buffer *b = (Buffer *) readBuf;
-      for (int i=0; i<4; i++)
-        printf("ch%d=%4" PRIu16 ", ", i, b->data[i]);
+      for (int i=0; i<NUM_SCANS; i++){
+        printf("ch%d=%4" PRIu16 ", ", i % NUM_SCAN_ELEMENTS, b->data[i]);
+        if(i % NUM_SCAN_ELEMENTS == NUM_SCAN_ELEMENTS -1){
       printf("ts=%" PRIu64 ",\t", b->timestamp_ns);
       printf("delta=%" PRIu64 ",\n", b->timestamp_ns - last_ts);
-
+      }}
       last_ts = b->timestamp_ns;
     } else if (result < 0) {
       perror("Error reading from device");
