@@ -25,8 +25,8 @@ volatile register uint32_t __R31;
  * PRU1 uses system event 18 (To ARM) and 19 (From ARM).
  * Our application used event 20 to notify PRU1 from PRU0.
  */
-#define TO_ARM_HOST			18
-#define FROM_ARM_HOST			19
+#define TO_ARM_HOST			16
+#define FROM_ARM_HOST			17
 #define PRU0_PRU1_EVT                   20
 
 #define CHAN_NAME			"rpmsg-pru"
@@ -79,8 +79,8 @@ void main(void) {
                            CHAN_DESC, CHAN_PORT) != PRU_RPMSG_SUCCESS);
   
   for (;;) {
-    // Check for new data from PRU0
-    if (__R31 & HOST0_INT) {
+    // Check for new data from PRU1
+    if (__R31 & HOST1_INT) {
       // Clear the event status
       CT_INTC.SICR = PRU0_PRU1_EVT;
 
@@ -96,7 +96,7 @@ void main(void) {
     }
 
     // Check for a data request from the ARM host, and if it can be fulfilled
-    if (__R31 & HOST1_INT && queue_size) {
+    if (__R31 & HOST0_INT && queue_size) {
       // Get the message
       int16_t status;
       status = pru_rpmsg_receive(&transport, &src, &dst, in_payload, &len);
