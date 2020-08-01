@@ -1,8 +1,8 @@
 
 # Default location of Code Generation Tools and PRU Software Support Package
 PRU_CGT ?=/usr/share/ti/cgt-pru
-PRU_SSP :=/home/debian/pru-ssp/pru-software-support-package-5.6.0
-#PRU_SSP ?=/usr/share/ti/pru-software-support-package
+#PRU_SSP :=/home/debian/pru-ssp/pru-software-support-package-5.6.0
+PRU_SSP ?=/usr/share/ti/pru-software-support-package
 
 # Target remoteproc sysfs dir
 RPROC = /sys/class/remoteproc/remoteproc2
