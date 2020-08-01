@@ -43,9 +43,9 @@ int main(void) {
     result = read(fd, readBuf, sizeof readBuf);
     if (result == sizeof(Buffer)) {
       Buffer *b = (Buffer *) readBuf;
-      for (int i=0; i<NUM_SCANS; i++){
+      for (int i=0; i<DATA_BUFFER_LEN; i++){
         printf("ch%d=%4" PRIu16 ", ", i % NUM_SCAN_ELEMENTS, b->data[i]);
-        if(i % NUM_SCAN_ELEMENTS == NUM_SCAN_ELEMENTS -1){
+        if(i % NUM_SCAN_ELEMENTS == NUM_SCAN_ELEMENTS - 1){
       printf("ts=%" PRIu64 ",\t", b->timestamp_ns);
       printf("delta=%" PRIu64 ",\n", b->timestamp_ns - last_ts);
       }}
