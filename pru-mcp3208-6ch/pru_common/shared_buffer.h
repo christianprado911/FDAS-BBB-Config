@@ -4,8 +4,8 @@
 
 #include <stdint.h>
 
-#define NUM_SCAN_ELEMENTS  4
-#define NUM_SCANS          60
+#define NUM_SCAN_ELEMENTS  6
+#define NUM_SCANS          40
 #define DATA_BUFFER_LEN    (NUM_SCAN_ELEMENTS * NUM_SCANS)
 #define BUFFER_WORD_LEN    2 + DATA_BUFFER_LEN/2
 
