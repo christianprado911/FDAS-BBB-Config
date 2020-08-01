@@ -10,7 +10,7 @@
 #include <rsc_types.h>
 #include <pru_rpmsg.h>
 
-#include "resource_table_empty.h"
+#include "resource_table_1.h"
 #include "pru_timer.h"
 #include "../pru_common/shared_buffer.h"
 
@@ -24,10 +24,10 @@ volatile register uint32_t __R31;
 #define PRU0_PRU1_TRIGGER (__R31 = (PRU0_PRU1_EVT - 16) | (1 << 5))
 
 // SPI registers bit masks
-#define MISO_MASK (1 << 1)
-#define MOSI_MASK (1 << 2)
-#define SCLK_MASK (1 << 0)
-#define CS_MASK   (1 << 3)
+#define MISO_MASK (1 << 3)
+#define MOSI_MASK (1 << 0)
+#define SCLK_MASK (1 << 2)
+#define CS_MASK   (1 << 1)
 
 // MCP3208 timing delays, in PRU cycles (200MHz ==> 5ns / cycle)
 #define MCP3208_TSUCS_CYC    40  //CS~ Fall to First Rising CLK edge (min 100ns)
@@ -126,11 +126,11 @@ void main() {
   __R31 = 0x00000000;
 
   // Initialize interupts so the PRUs can be syncronized.
-  CT_INTC.CMR5_bit.CH_MAP_20 = 0;     // Map event 20 to channel 0
-  CT_INTC.HMR0_bit.HINT_MAP_0 = 0;    // Map channel 0 to host 0
+  CT_INTC.CMR5_bit.CH_MAP_20 = 1;     // Map event 20 to channel 1
+  CT_INTC.HMR0_bit.HINT_MAP_1 = 1;    // Map channel 1 to host 1
   CT_INTC.SICR = PRU0_PRU1_EVT;       // Ensure event 20 is cleared
   CT_INTC.EISR = PRU0_PRU1_EVT;       // Enable event 20
-  CT_INTC.HIEISR = 0;                 // Enable Host interrupt 0
+  CT_INTC.HIEISR = 1;                 // Enable Host interrupt 1
   CT_INTC.GER = 1;                    // Globally enable host interrupts
 
   // Initialize buffer index
