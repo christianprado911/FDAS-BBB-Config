@@ -41,6 +41,8 @@ static uint8_t scan_ctrl[NUM_SCAN_ELEMENTS] = {
   0b1001, //Single ended, ch1
   0b1010, //Single ended, ch2
   0b1011, //Single ended, ch3
+  0b1100, //Single ended, ch4
+  0b1101, //Single ended, ch5
 };
 
 static inline void mosi_set() {
